@@ -4,7 +4,6 @@
     <div class="wrapper">
         <!-- Sidebar -->
         <div class="sidebar">
-            <h1>Hola</h1>
             <Sidebar></Sidebar>
         </div>
         <div class="main-content" id="content">
