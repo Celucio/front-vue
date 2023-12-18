@@ -4,7 +4,7 @@
     <div class="wrapper">
         <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Contenido del sidebar aquí -->
+            <h1>Hola</h1>
             <Sidebar></Sidebar>
         </div>
         <div class="main-content" id="content">
