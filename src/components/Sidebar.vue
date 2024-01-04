@@ -4,59 +4,59 @@
 
     <div id="sidebar">
       <header>
-        <a href="/admin"><i class="fa-solid fa-house"></i> Home</a>
+        <router-link :to="{ path:'/admin'}"><i class="fa-solid fa-house"></i> Home</router-link>
       </header>
 
       <ul class="nav" id="nav">
         <li>
-          <a href="/admin/estudiante">
+          <router-link :to="{ path:'/admin/estudiante'}">
             <i class="zmdi zmdi-view-dashboard"></i> Estudiante
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="#">
+          <router-link :to="{ path:'/admin/docente'}">
             <i class="zmdi zmdi-link"></i> Docente
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="#">
+          <router-link :to="{ path:'/admin/asignatura'}">
             <i class="zmdi zmdi-widgets"></i> Asignaturas
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="#">
+          <router-link :to="{ path:'/admin/grado'}">
             <i class="zmdi zmdi-calendar"></i> Grado
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="#">
+          <router-link :to="{ path:'/admin/matricula'}">
             <i class="zmdi zmdi-info-outline"></i> Matricula
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="#">
+          <router-link :to="{ path:''}">
             <i class="zmdi zmdi-settings"></i> Notas
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="#">
+          <router-link :to="{ path:'/admin/periodo'}">
             <i class="zmdi zmdi-comment-more"></i> Periodo
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="#">
+          <router-link :to="{ path:'/admin/periodoC'}">
             <i class="zmdi zmdi-info-outline"></i> Periodo de calificaciones
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="#">
+          <router-link :to="{ path:'/admin/actividades'}">
             <i class="zmdi zmdi-settings"></i> Actividades Educativas
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="#">
+          <router-link :to="{ path:'/admin/tipo'}">
             <i class="zmdi zmdi-comment-more"></i> Tipo Actividad
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -71,7 +71,8 @@ export default {
 </script>
 <style scoped>
 @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
-
+@import url('https://cdn.jsdelivr.net/npm/material-design-icons@3.0.1/iconfont/material-icons.css');
+@import '@fortawesome/fontawesome-free/css/all.css';
 
 body {
   overflow-x: hidden;
@@ -135,7 +136,7 @@ body {
   background: none;
   font-weight: bold;
   color: #7c7c7c;
-  font-size: 15px;
+  font-size: 14px;
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
 }
@@ -155,12 +156,11 @@ body {
 
 #sidebar .nav li:hover {
   background: rgb(187, 219, 255);
-  color: #ffffff;
   border-radius: 80px;
   width: 17rem;
   cursor: pointer;
-  
 }
+
 
 #nav {
   display: block;

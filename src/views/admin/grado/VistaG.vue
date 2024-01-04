@@ -9,14 +9,14 @@
                 <div class="">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h1 style="font-family: 'Prompt'; font-size: 2rem;">Estudiantes</h1>
+                            <h1 style="font-family: 'Prompt'; font-size: 2rem;">Grado</h1>
                         </div>
                         <div class="col-sm-6">
-                            <router-link :to="{ path: '/admin/estudiante/crear'}" class="btn btn-success float-end mt-3"
+                            <router-link :to="{ path: '/admin/grado/crear'}" class="btn btn-success float-end mt-3"
                                 style="font-family: 'Montserrat';"><i class="fa-solid fa-plus"></i> <b>Crear</b></router-link>
                         </div>
                     </div>
-                    <DataTable :data="datos" :columns="columnas" :dataKey="key" />
+                    <DataTable :data="datos" :columns="columnas" :dataKey="key"/>
                 </div>
             </div>
         </div>
@@ -40,21 +40,16 @@ export default {
         return {
             datos: [], // Datos de estudiantes
             columnas: [
-                { label: 'Nombre', data: 'nombre', style: { maxWidth: '50px' } },
-                { label: 'Apellido', data: 'apellido', style: { maxWidth: '50px' } },
-                { label: 'Cédula', data: 'cedula', style: { width: '100px' } },
-                { label: 'Fecha de Nacimiento', data: 'fechaNacimiento', style: { width: '100px' } },
-                { label: 'Dirección', data: 'direccion', style:{ width: '150px'} },
-                { label: 'Correo', data: 'correo', style: { width: '200px' } },
-                { label: 'Celular', data: 'celular', style: { maxWidth: '50px' } },
+                { label: 'Nombre grado', data: 'nombreGrado', style: { maxWidth: '50px' } },
+                { label: 'Docente', data: 'persId', style: { maxWidth: '50px' } },
                 {
                     label: 'Acciones', data: null, style: { width: '70px' }, render: function (data, type, row, meta) {
-                        return `<a href="/admin/estudiante/editar/${row.id}" class="btn btn-warning"><i class="fa-solid fa-edit"></i></a>`;
+                        return `<a href="/admin/grado/editar/${row.id}" class="btn btn-warning"><i class="fa-solid fa-edit"></i></a>`;
                     }
                 }
 
             ],
-            key: 'defaultKey',
+            key: 'defaultKey'
 
         };
     },
@@ -63,20 +58,17 @@ export default {
     },
     methods: {
         get() {
-            axios.get(API_URL + '/estudiante').then(
+            axios.get(API_URL + '/grado').then(
                 res => {
-                    this.datos = res.data.map(estudiante => {
+                    this.datos = res.data.map(grado => {
                         return {
-                            ...estudiante,
-                            fechaNacimiento: this.formatFecha(estudiante.fechaNacimiento)
+                            ...grado,
+                            persId: `${grado.persona.nombre} ${grado.persona.apellido}`,
+                            
                         };
                     });
                 }
             )
-        },
-        formatFecha(fecha) {
-            const fechaFormateada = new Date(fecha).toLocaleDateString();
-            return fechaFormateada;
         }
     },
 };

@@ -7,7 +7,7 @@
         <span class="texto-flecha"><span class="fa-solid fa-chevron-left"></span>Regresar</span>
     </div>
     <div class="text-center" style="font-family:'Prompt'; color: #037aff; font-size: 1.5rem;"><b>Crear
-            Estudiante</b>
+            Docente</b>
     </div>
     <div class=" mt-3">
         <div class="col-md-6 offset-md-3">
@@ -81,7 +81,7 @@
                         type="submit" class="btn btn-success text-white w-50 rounded-5 ">Crear</button>
                 </div>
                 <div class="col-6">
-                    <router-link :to="{ path: '/admin/estudiante' }" class="btn btn-danger w-50 rounded-5 ">
+                    <router-link :to="{ path: '/admin/docente' }" class="btn btn-danger w-50 rounded-5 ">
                         Cancelar
                     </router-link>
                 </div>
@@ -114,9 +114,9 @@ export default {
             correoT: false,
             celular: '',
             celularT: false,
-            url: API_URL+'/estudiante',
-            minFechaNacimiento: '2010-01-01',
-            maxFechaNacimiento: '2017-12-31',
+            url: API_URL+'/docente',
+            minFechaNacimiento: '1950-01-01',
+            maxFechaNacimiento: '2000-12-31',
             mensajesError: {
                 nombre: 'Por favor, ingresa un nombre.',
                 apellido: 'Por favor, ingresa un apellido.',
@@ -131,7 +131,7 @@ export default {
     },
     methods: {
         regresarPagina() {
-            this.$router.go(-1); // Por ejemplo, utilizando Vue Router
+            this.$router.go(-1);
         },
         validarNombre(nombre) {
             return validarNombre(nombre);
@@ -161,15 +161,15 @@ export default {
                 direccion: this.direccion,
                 correo: this.correo,
                 celular: this.celular
-            }).then(res=> {
+            }).then(res => {
                 Swal.fire({
                     title: 'Exito!',
                     text: 'Registro guardado',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 1500
-                });
-                router.push('/admin/estudiante');
+                })
+                router.push('/admin/docente')
 
             }).catch(error => {
                 if (error.response && error.response.status === 500 && error.response.data.error) {

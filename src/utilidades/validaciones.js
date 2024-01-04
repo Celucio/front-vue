@@ -38,25 +38,19 @@ export function validarFechaNacimiento(fechaNacimiento) {
     const fechaIngresada = new Date(fechaNacimiento);
     const fechaActual = new Date();
     const fechaMinima = new Date();
+    
     fechaMinima.setFullYear(fechaMinima.getFullYear() - 5);
 
-    // La fecha no debe ser del día actual
     if (fechaIngresada.toDateString() === fechaActual.toDateString()) {
         return false;
     }
-
-    // Debe permitir ingreso de fechas menores con 5 años a la fecha actual
     if (fechaIngresada < fechaMinima) {
         return false;
     }
-
-    // No debe permitir ingreso de fechas futuras
     if (fechaIngresada > fechaActual.toDateString()) {
         return false;
     }
-
-    // Validar que el año ingresado sea mayor o igual a 1900
-    if (fechaIngresada.getFullYear() < 1900) {
+    if (fechaIngresada.getFullYear() < 2010) {
         return false;
     }
 
@@ -73,12 +67,11 @@ export function validarCorreoElectronico(correoElectronico) {
 }
 
 export function validarNumeroCelular(numeroCelular) {
-    const numeroCelularRegExp = /^[0-9]{10}$/;
+    const celularRegExp = /^09\d{8}$/;
 
-    if (!numeroCelularRegExp.test(numeroCelular)) {
+    if (!celularRegExp.test(numeroCelular)) {
         return false;
     }
-    // Verificar que el número de celular no sea una secuencia de números iguales
     if (/^(\d)\1+$/.test(numeroCelular)) {
         return false;
     }
@@ -87,7 +80,24 @@ export function validarNumeroCelular(numeroCelular) {
 }
 
 export function validarNombre(nombre) {
-    const formatoValido = /^[a-zA-ZÀ-ÿ\s]{1,40}$/ // expresión regular
+    const nombreRegExp = /^[a-zA-ZÀ-ÿ\s]{1,40}$/;
 
-    return formatoValido.test(nombre) 
-  }
+    if (!nombreRegExp.test(nombre)) {
+        return false;
+    }
+
+    return true;
+}
+
+export function validarFormatoPeriodoLectivo(periodo) {
+    const formatoRegExp = /^\d{4}-\d{4}$/;
+
+    if (!formatoRegExp.test(periodo)) {
+        return false;
+    }
+    const [anioInicio, anioFin] = periodo.split('-');
+    if (isNaN(anioInicio) || isNaN(anioFin) || anioInicio.length !== 4 || anioFin.length !== 4) {
+        return false;
+    }
+    return true;
+}

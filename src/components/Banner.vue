@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar ">
-        <div class="container-fluid mt-2 mb-2">
+        <div class="container-fluid">
             <a class="navbar-brand ms-4" href="#"><img class="img" src="../assets/logo E.png"><span
                     class="ms-3 ed"><b>EduTechFusion</b></span></a>
             <ul class="nav me-4">
