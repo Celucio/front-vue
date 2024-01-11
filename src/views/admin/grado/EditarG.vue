@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Banner nombre="Carlos" />
+        <Navbar></Navbar>
     </div>
     <div class="flecha-regresar" @click="regresarPagina">
 
@@ -17,6 +17,7 @@
                         placeholder="Nombre del Grado" required @blur="data.nombreGradoT = true">
                     <span v-if="data.nombreGradoT && !data.nombreGrado" class="error text-danger small">{{
                         mensajesError.nombreGrado }}</span>
+                         <span v-if="!validarCaracteresEspeciales(data.nombreGrado) && data.nombreGrado" class="error text-danger small">{{ mensajesError.cEsp }}</span>
                 </div>
                 <div class="col-md-6">
                     <label for="docente" class="form-label">Docente</label>
@@ -27,7 +28,7 @@
                     </select>
                 </div>
                 <div class="col-6 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success text-white w-50 rounded-5">Actualizar</button>
+                    <button :disabled="!validarCaracteresEspeciales(data.nombreGrado)" type="submit" class="btn btn-success text-white w-50 rounded-5">Actualizar</button>
                 </div>
                 <div class="col-6">
                     <router-link :to="{ path: '/admin/grado' }" class="btn btn-danger w-50 rounded-5">Cancelar</router-link>
@@ -38,12 +39,13 @@
 </template>
   
 <script>
-import Banner from '@/components/Banner.vue';
+import Navbar from '@/components/Navbar.vue';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { API_URL } from '../../../api/config.js';
+import { validarCaracteresEspeciales } from '@/utilidades/validaciones.js';
 
 export default {
     data() {
@@ -57,6 +59,7 @@ export default {
             },
             mensajesError: {
                 nombreGrado: 'Ingrese un grado',
+                cEsp: 'No se permiten caracteres especiales',
             },
             docentes: [],
             url: API_URL + '/grado/',
@@ -70,6 +73,9 @@ export default {
     methods: {
         regresarPagina() {
             this.$router.go(-1);
+        },
+        validarCaracteresEspeciales(cadena) {
+            return validarCaracteresEspeciales(cadena);
         },
         getIdFromRoute() {
             const route = useRoute();
@@ -85,7 +91,6 @@ export default {
             axios.get(this.url).then((res) => {
                 this.data.nombreGrado = res.data.nombreGrado;
                 this.data.selectedDocente = res.data.persId;
-                console.log(this.data);
             });
         },
         guardar() {
@@ -118,7 +123,7 @@ export default {
         },
     },
     components: {
-        Banner,
+        Navbar,
     },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Banner nombre="Carlos" />
+        <Navbar></Navbar>
     </div>
     <div class="flecha-regresar" @click="regresarPagina">
 
@@ -73,7 +73,7 @@
 </template>
 <script>
 
-import Banner from '@/components/Banner.vue';
+import Navbar from '@/components/Navbar.vue';
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import router from '@/router';
@@ -166,7 +166,7 @@ export default {
         }
     },
     components: {
-        Banner
+        Navbar
     }
 }
 </script>

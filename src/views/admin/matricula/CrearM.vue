@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Banner nombre="Carlos" />
+        <Navbar></Navbar>
     </div>
     <div class="flecha-regresar" @click="regresarPagina">
 
@@ -54,7 +54,7 @@
     </div>
 </template>
 <script>
-import Banner from '@/components/Banner.vue';
+import Navbar from '@/components/Navbar.vue';
 import axios from 'axios'
 import Swal from 'sweetalert2';
 import router from '@/router';
@@ -93,7 +93,7 @@ export default {
             this.$router.go(-1);
         },
         getEstudiantes() {
-            axios.get(API_URL + '/estudiante').then(
+            axios.get(API_URL + '/estudiantes/disponibles').then(
                 res => {
                     this.estudiantes = res.data;
                 }
@@ -132,7 +132,7 @@ export default {
             }).catch(error => {
                 Swal.fire({
                     title: 'Error',
-                    text: 'El estudiante ya esta registrado.',
+                    text: 'Complete todos los campos',
                     icon: 'error',
                     showConfirmButton: false,
                     timer: 1500
@@ -143,7 +143,7 @@ export default {
         }
     },
     components: {
-        Banner
+        Navbar
     }
 }
 </script>

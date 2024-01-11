@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Banner nombre="Carlos" />
+        <Navbar></Navbar>
     </div>
     <div class="flecha-regresar" @click="regresarPagina">
         <span class="texto-flecha"><span class="fa-solid fa-chevron-left"></span>Regresar</span>
@@ -13,7 +13,7 @@
             <form @submit.prevent="guardar" class="row g-3 pb-4">
                 <div class="col-md-6">
                     <label class="form-label">Nombre del estudiante</label>
-                    <select class="form-select" v-model="selectedEstudiante" aria-label="Default select example">
+                    <select class="form-select" v-model="selectedEstudiante" aria-label="Default select example" disabled >
                         <option disabled>Seleccione un estudiante</option>
                         <option v-for="estudiante in estudiantes" :key="estudiante.id" :value="estudiante.id">
                             {{ estudiante.nombre }} {{ estudiante.apellido }}</option>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Periodo lectivo</label>
-                    <select class="form-select" v-model="selectedPeriodo" aria-label="Default select example">
+                    <select class="form-select" v-model="selectedPeriodo" aria-label="Default select example" disabled >
                         <option disabled>Seleccione un periodo</option>
                         <option v-for="periodo in periodos" :key="periodo.id" :value="periodo.id">
                             {{ periodo.anioLectivo }}</option>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Grado</label>
-                    <select class="form-select" v-model="selectedGrado" aria-label="Default select example">
+                    <select class="form-select" v-model="selectedGrado" aria-label="Default select example" disabled >
                         <option disabled>Seleccione un grado</option>
                         <option v-for="grado in grados" :key="grado.id" :value="grado.id">{{ grado.nombreGrado }}</option>
                     </select>
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import Banner from '@/components/Banner.vue';
+import Navbar from '@/components/Navbar.vue';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import router from '@/router';
@@ -147,7 +147,7 @@ export default {
         },
     },
     components: {
-        Banner
+        Navbar
     }
 };
 </script>

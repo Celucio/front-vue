@@ -4,58 +4,58 @@
 
     <div id="sidebar">
       <header>
-        <router-link :to="{ path:'/admin'}"><i class="fa-solid fa-house"></i> Home</router-link>
+        <router-link :to="{ path:'/admin'}"> Home</router-link>
       </header>
 
       <ul class="nav" id="nav">
         <li>
           <router-link :to="{ path:'/admin/estudiante'}">
-            <i class="zmdi zmdi-view-dashboard"></i> Estudiante
+            <i class="fa-solid fa-graduation-cap"></i> Estudiante
           </router-link>
         </li>
         <li>
           <router-link :to="{ path:'/admin/docente'}">
-            <i class="zmdi zmdi-link"></i> Docente
+            <i class="fa-solid fa-chalkboard-user"></i> Docente
           </router-link>
         </li>
         <li>
           <router-link :to="{ path:'/admin/asignatura'}">
-            <i class="zmdi zmdi-widgets"></i> Asignaturas
+            <i class="fa-solid fa-book"></i> Asignaturas
           </router-link>
         </li>
         <li>
           <router-link :to="{ path:'/admin/grado'}">
-            <i class="zmdi zmdi-calendar"></i> Grado
+            <i class="fa-solid fa-cube"></i> Grado
           </router-link>
         </li>
         <li>
           <router-link :to="{ path:'/admin/matricula'}">
-            <i class="zmdi zmdi-info-outline"></i> Matricula
+            <i class="fa-solid fa-stamp"></i> Matricula
           </router-link>
         </li>
         <li>
           <router-link :to="{ path:''}">
-            <i class="zmdi zmdi-settings"></i> Notas
+            <i class="fa-solid fa-marker"></i> Notas
           </router-link>
         </li>
         <li>
           <router-link :to="{ path:'/admin/periodo'}">
-            <i class="zmdi zmdi-comment-more"></i> Periodo
+            <i class="fa-solid fa-check"></i> Periodo Lectivo
           </router-link>
         </li>
         <li>
           <router-link :to="{ path:'/admin/periodoC'}">
-            <i class="zmdi zmdi-info-outline"></i> Periodo de calificaciones
+            <i class="fa-solid fa-check"></i> Periodo de calificaciones
           </router-link>
         </li>
         <li>
           <router-link :to="{ path:'/admin/actividades'}">
-            <i class="zmdi zmdi-settings"></i> Actividades Educativas
+            <i class="fa-solid fa-user-pen"></i> Actividades Educativas
           </router-link>
         </li>
         <li>
           <router-link :to="{ path:'/admin/tipo'}">
-            <i class="zmdi zmdi-comment-more"></i> Tipo Actividad
+            <i class="fa-solid fa-shapes"></i> Tipo Actividad
           </router-link>
         </li>
       </ul>
@@ -64,15 +64,13 @@
   </div>
 </template>
 <script>
+
 export default {
   name: "Sidebar",
 
 };
 </script>
 <style scoped>
-@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
-@import url('https://cdn.jsdelivr.net/npm/material-design-icons@3.0.1/iconfont/material-icons.css');
-@import '@fortawesome/fontawesome-free/css/all.css';
 
 body {
   overflow-x: hidden;
@@ -135,7 +133,7 @@ body {
 #sidebar .nav a {
   background: none;
   font-weight: bold;
-  color: #7c7c7c;
+  color: #464646;
   font-size: 14px;
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
@@ -152,13 +150,16 @@ body {
   padding-left: 30px;
   padding-bottom: 8px;
   transition: all 0.3s;
+  margin-bottom: 5px;
+}
+#sidebar .nav i{
+  margin-right: 5px;
 }
 
 #sidebar .nav li:hover {
   background: rgb(187, 219, 255);
   border-radius: 80px;
   width: 17rem;
-  cursor: pointer;
 }
 
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Banner nombre="Carlos" />
+        <Navbar></Navbar>
     </div>
     <div class="flecha-regresar" @click="regresarPagina">
         <span class="texto-flecha"><span class="fa-solid fa-chevron-left"></span>Regresar</span>
@@ -12,29 +12,29 @@
         <div class="col-md-6 offset-md-3">
             <form @submit.prevent="guardar" class="row g-3 pb-4">
                 <div class="col-md-6">
-                    <label class="form-label">Nombre de la Materia</label>
-                    <input type="text" v-model="nombreMateria" class="form-control" id="nombreMateria"
-                        placeholder="Nombre Materia" required @blur="nombreMateriaT = true">
-                    <span v-if="nombreMateriaT && !nombreMateria" class="error text-danger small">{{
-                        mensajesError.nombreMateria }}</span>
-                </div>
-                <div class="col-md-6">
                     <label for="docente" class="form-label">Grado</label>
                     <select class="form-select" v-model="selectedGrado" aria-label="Default select example">
                         <option disabled>Seleccione un grado</option>
                         <option v-for="grado in grados" :key="grado.id" :value="grado.id">{{ grado.nombreGrado }}</option>
                     </select>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <label class="form-label">Estado</label>
                     <select class="form-select" v-model="estado" aria-label="Default select example">
                         <option disabled>Seleccione un estado</option>
-                        <option value="A">Activo</option>
+                        <option value="A" selected>Activo</option>
                         <option value="I">Inactivo</option>
                     </select>
                 </div>
+                <div class="col-md-12">
+                    <label class="form-label">Nombre de la asignatura</label>
+                    <input type="text" v-model="nombreMateria" class="form-control" id="nombreMateria" placeholder="Nombre de la asignatura"
+                        required @blur="nombreMateriaT = true">
+                    <span v-if="nombreMateriaT && !nombreMateria" class="error text-danger small">{{ mensajesError.nombreMateria}}</span>
+                    <span v-if="!validarCaracteresEspeciales(nombreMateria) && nombreMateria" class="error text-danger small">{{ mensajesError.cEsp}}</span>
+                </div> 
                 <div class="col-6 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success text-white w-50 rounded-5">Actualizar</button>
+                    <button :disabled="!validarCaracteresEspeciales(nombreMateria)" type="submit" class="btn btn-success text-white w-50 rounded-5">Actualizar</button>
                 </div>
                 <div class="col-6">
                     <router-link :to="{ path: '/admin/asignatura' }" class="btn btn-danger w-50 rounded-5">
@@ -47,11 +47,12 @@
 </template>
 
 <script>
-import Banner from '@/components/Banner.vue';
+import Navbar from '@/components/Navbar.vue';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import router from '@/router';
 import { API_URL } from '../../../api/config.js';
+import { validarCaracteresEspeciales } from '@/utilidades/validaciones.js';
 
 export default {
     data() {
@@ -63,6 +64,7 @@ export default {
             idGrado: '',
             mensajesError: {
                 nombreMateria: 'Ingrese una materia',
+                cEsp: 'No se permiten caracteres especiales'
             },
             nombreMateriaT: false,
             url: API_URL + '/asignatura/',
@@ -81,7 +83,9 @@ export default {
                 }
             )
         },
-
+        validarCaracteresEspeciales(cadena){
+            return validarCaracteresEspeciales(cadena);
+        },
         getIdFromRoute() {
             const route = this.$route;
             this.id = route.params.id;
@@ -121,7 +125,7 @@ export default {
         }
     },
     components: {
-        Banner
+        Navbar
     }
 };
 </script>

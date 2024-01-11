@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Banner nombre="Carlos" />
+        <Navbar></Navbar>
     </div>
     <div class="flecha-regresar" @click="regresarPagina">
 
@@ -91,7 +91,7 @@
 </template>
 <script>
 
-import Banner from '@/components/Banner.vue';
+import Navbar from '@/components/Navbar.vue';
 import axios from 'axios'
 import Swal from 'sweetalert2';
 import router from '@/router';
@@ -142,9 +142,6 @@ export default {
         validarCorreoElectronico(correoElectronico) {
             return validarCorreoElectronico(correoElectronico);
         },
-        campoVacio(campo) {
-            return !this[campo];
-        },
         validarFechaNacimiento(fechaNacimiento) {
             this.fechaTocada = true;
             return validarFechaNacimiento(fechaNacimiento);
@@ -191,7 +188,7 @@ export default {
         }
     },
     components: {
-        Banner
+        Navbar
     }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Banner nombre="Carlos" />
+        <Navbar></Navbar>
     </div>
     <div class="flecha-regresar" @click="regresarPagina">
 
@@ -18,6 +18,7 @@
                         required @blur="data.nombrePeriodoT = true">
                     <span v-if="data.nombrePeriodoT && !data.nombrePeriodo" class="error text-danger small">{{ mensajesError.nombrePeriodo
                     }}</span>
+                    <span v-if="!validarCaracteresEspeciales(data.nombrePeriodo) && nombrePeriodo" class="error text-danger small">{{ mensajesError.cEs }}</span>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Estado</label>
@@ -27,7 +28,7 @@
                     </select>
                 </div>
                 <div class="col-6 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success text-white w-50 rounded-5 ">Actualizar</button>
+                    <button :disabled="!validarCaracteresEspeciales(data.nombrePeriodo)" type="submit" class="btn btn-success text-white w-50 rounded-5 ">Actualizar</button>
                 </div>
                 <div class="col-6">
                     <router-link :to="{ path: '/admin/periodoC' }" class="btn btn-danger w-50 rounded-5 ">
@@ -39,12 +40,13 @@
     </div>
 </template>
 <script>
-import Banner from '@/components/Banner.vue';
+import Navbar from '@/components/Navbar.vue';
 import axios from 'axios'
 import Swal from 'sweetalert2';
 import { ref } from 'vue'
 import { useRoute } from 'vue-router';
 import { API_URL } from '../../../api/config.js';
+import { validarCaracteresEspeciales} from '../../../utilidades/validaciones.js';
 export default {
     data() {
         const estado = ref("")
@@ -59,6 +61,7 @@ export default {
             mensajesError: {
                 nombrePeriodo: 'Ingrese un periodo lectivo',
                 estado: 'Ingrese un estado',
+                cEs: 'No se permiten caracteres especiales',
             },
             url: API_URL+'/periodoCalificaciones/',
         }
@@ -81,6 +84,9 @@ export default {
                this.data.nombrePeriodo = res.data.nombrePeriodo;
                this.data.estado = res.data.estado;
             })
+        },
+        validarCaracteresEspeciales(cadena){
+            return validarCaracteresEspeciales(cadena);
         },
         guardar() {
             axios.put(this.url, {
@@ -112,7 +118,7 @@ export default {
         }
     },
     components: {
-        Banner
+        Navbar
     }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Banner nombre="Carlos" />
+        <Navbar></Navbar>
     </div>
     <div class="flecha-regresar" @click="regresarPagina">
 
@@ -13,19 +13,13 @@
         <div class="col-md-6 offset-md-3">
             <form @submit.prevent="guardar" class="row g-3 pb-4">
                 <div class="col-md-6">
-                    <label class="form-label">Nombre de la Materia</label>
-                    <input type="text" v-model="nombreMateria" class="form-control" id="nombreMateria" placeholder="Nombre Materia"
-                        required @blur="nombreMateriaT = true">
-                    <span v-if="nombreMateriaT && !nombreMateria" class="error text-danger small">{{ mensajesError.nombreMateria}}</span>
-                </div>
-                <div class="col-md-6">
                     <label for="docente" class="form-label">Grado</label>
                     <select class="form-select" v-model="selectedGrado" aria-label="Default select example">
                         <option disabled>Seleccione un grado</option>
                         <option v-for="grado in grados" :key="grado.id" :value="grado.id">{{ grado.nombreGrado }}</option>
                     </select>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <label class="form-label">Estado</label>
                     <select class="form-select" v-model="estado" aria-label="Default select example">
                         <option disabled>Seleccione un estado</option>
@@ -33,8 +27,15 @@
                         <option value="I">Inactivo</option>
                     </select>
                 </div>
+                <div class="col-md-12">
+                    <label class="form-label">Nombre de la asignatura</label>
+                    <input type="text" v-model="nombreMateria" class="form-control" id="nombreMateria" placeholder="Nombre de la asignatura"
+                        required @blur="nombreMateriaT = true">
+                    <span v-if="nombreMateriaT && !nombreMateria" class="error text-danger small">{{ mensajesError.nombreMateria}}</span>
+                    <span v-if="!validarCaracteresEspeciales(nombreMateria) && nombreMateria" class="error text-danger small">{{ mensajesError.cEs}}</span>
+                </div>    
                 <div class="col-6 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success text-white w-50 rounded-5 ">Crear</button>
+                    <button :disabled="!validarCaracteresEspeciales(nombreMateria)" type="submit" class="btn btn-success text-white w-50 rounded-5 ">Crear</button>
                 </div>
                 <div class="col-6">
                     <router-link :to="{ path: '/admin/asignatura' }" class="btn btn-danger w-50 rounded-5 ">
@@ -46,12 +47,13 @@
     </div>
 </template>
 <script>
-import Banner from '@/components/Banner.vue';
+import Navbar from '@/components/Navbar.vue';
 import axios from 'axios'
 import Swal from 'sweetalert2';
 import router from '@/router';
 import { ref } from 'vue'
 import { API_URL } from '../../../api/config.js';
+import {validarCaracteresEspeciales} from '@/utilidades/validaciones.js';
 export default {
     data() {
         const estado = ref("")
@@ -63,6 +65,7 @@ export default {
             idGrado: '',
             mensajesError: {
                 nombreMateria: 'Ingrese una materia',
+                cEs: 'No se permiten caracteres especiales'
             },
             nombreMateriaT: false,
             estadoT: false,
@@ -75,6 +78,9 @@ export default {
     methods: {
         regresarPagina() {
             this.$router.go(-1);
+        },
+        validarCaracteresEspeciales(cadena){
+            return validarCaracteresEspeciales(cadena);
         },
         getGrado() {
             axios.get(API_URL+'/grado').then(
@@ -93,12 +99,12 @@ export default {
                 idGrado: this.selectedGrado
             }).then(function (response) {
 
-                console.log(new Date() + ": Guardado correctamente");
-
                 Swal.fire({
                     title: 'Exito!',
                     text: 'Registro guardado',
-                    icon: 'success'
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
                 }).then((result) => {
                     if (result.isConfirmed) {
                         router.push('/admin/asignatura')
@@ -110,14 +116,16 @@ export default {
                 Swal.fire({
                     title: 'Error',
                     text: 'Hubo un error al procesar la solicitud.',
-                    icon: 'error'
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
                 });
             });
 
         }
     },
     components: {
-        Banner
+        Navbar
     }
 }
 </script>

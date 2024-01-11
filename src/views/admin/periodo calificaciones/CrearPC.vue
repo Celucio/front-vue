@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Banner nombre="Carlos" />
+        <Navbar></Navbar>
     </div>
     <div class="flecha-regresar" @click="regresarPagina">
 
@@ -18,6 +18,7 @@
                         required @blur="nombrePeriodoT = true">
                     <span v-if="nombrePeriodoT && !nombrePeriodo" class="error text-danger small">{{ mensajesError.nombrePeriodo
                     }}</span>
+                    <span v-if="!validarCaracteresEspeciales(nombrePeriodo) && nombrePeriodo" class="error text-danger small">{{ mensajesError.cEs }}</span>
                     
                 </div>
                 <div class="col-md-6">
@@ -28,7 +29,7 @@
                     </select>
                 </div>
                 <div class="col-6 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success text-white w-50 rounded-5 ">Crear</button>
+                    <button :disabled="!validarCaracteresEspeciales(nombrePeriodo)" type="submit" class="btn btn-success text-white w-50 rounded-5 ">Crear</button>
                 </div>
                 <div class="col-6">
                     <router-link :to="{ path: '/admin/periodoC' }" class="btn btn-danger w-50 rounded-5 ">
@@ -40,13 +41,13 @@
     </div>
 </template>
 <script>
-import Banner from '@/components/Banner.vue';
+import Navbar from '@/components/Navbar.vue';
 import axios from 'axios'
 import Swal from 'sweetalert2';
 import router from '@/router';
 import { ref } from 'vue'
 import { API_URL } from '../../../api/config.js';
-import { validarFormatoPeriodoLectivo} from '../../../utilidades/validaciones.js';
+import { validarCaracteresEspeciales} from '../../../utilidades/validaciones.js';
 export default {
     data() {
         const estado = ref("")
@@ -56,6 +57,7 @@ export default {
             mensajesError: {
                 nombrePeriodo: 'Ingrese un periodo de calificaciones',
                 estado: 'Ingrese un estado',
+                cEs: 'No se permiten caracteres especiales',
             },
             nombrePeriodoT: false,
             estadoT: false,
@@ -73,37 +75,38 @@ export default {
                 return true;
             }
         },
+        validarCaracteresEspeciales(cadena){
+            return validarCaracteresEspeciales(cadena);
+        },  
         guardar() {
             axios.post(this.url, {
                 nombrePeriodo: this.nombrePeriodo,
                 estado: this.estado,
             }).then(function (response) {
-
-                console.log(new Date() + ": Guardado correctamente");
-
                 Swal.fire({
                     title: 'Exito!',
                     text: 'Registro guardado',
-                    icon: 'success'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        router.push('/admin/periodoC')
-                    }
-                });
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                router.push('/admin/periodoC');
 
             }).catch(error => {
                 console.error('Error en la petición:', error);
                 Swal.fire({
                     title: 'Error',
                     text: 'Hubo un error al procesar la solicitud.',
-                    icon: 'error'
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
                 });
             });
 
         }
     },
     components: {
-        Banner
+        Navbar
     }
 }
 </script>

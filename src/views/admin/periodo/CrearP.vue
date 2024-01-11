@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Banner nombre="Carlos" />
+        <Navbar></Navbar>
     </div>
     <div class="flecha-regresar" @click="regresarPagina">
 
@@ -39,7 +39,7 @@
     </div>
 </template>
 <script>
-import Banner from '@/components/Banner.vue';
+import Navbar from '@/components/Navbar.vue';
 import axios from 'axios'
 import Swal from 'sweetalert2';
 import { ref } from 'vue';
@@ -90,15 +90,17 @@ export default {
                 console.error('Error en la petición:', error);
                 Swal.fire({
                     title: 'Error',
-                    text: 'Hubo un error al procesar la solicitud.',
-                    icon: 'error'
+                    text: 'No pueden existir 2 periodos iguales',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
                 });
             });
 
         }
     },
     components: {
-        Banner
+        Navbar
     }
 }
 </script>

@@ -51,7 +51,7 @@ export default {
                 },
                 {
                     label: 'Acciones', data: null, style: { width: '70px' }, render: function (data, type, row, meta) {
-                        return `<a href="/admin/matricula/editar/${row.id}" class="btn btn-warning"><i class="fa-solid fa-edit"></i></a>`;
+                        return `<a href="/admin/actividades/editar/${row.id}" class="btn btn-warning"><i class="fa-solid fa-edit"></i></a>`;
                     }
                 }
 
@@ -69,6 +69,7 @@ export default {
                 res => {
                     this.datos = res.data.map(actividades => {
                         return {
+                            id: actividades.id,
                             titulo: actividades.titulo,
                             detalleActividad: actividades.detalleActividad,
                             fechaInicio: this.formatFecha(actividades.fechaInicio),

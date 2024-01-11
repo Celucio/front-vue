@@ -21,7 +21,7 @@
 
                     <div class="table-responsive" style="font-family: 'Prompt'; font-size: small; overflow-x:visible;">
                         <div class="table-container">
-                            <DataTable :data="datos" :columns="columnas" :dataKey="key"/>
+                            <DataTable :data="datos" :columns="columnas" />
                         </div>
                     </div>
                 </div>

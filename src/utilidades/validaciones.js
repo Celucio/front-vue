@@ -38,7 +38,7 @@ export function validarFechaNacimiento(fechaNacimiento) {
     const fechaIngresada = new Date(fechaNacimiento);
     const fechaActual = new Date();
     const fechaMinima = new Date();
-    
+
     fechaMinima.setFullYear(fechaMinima.getFullYear() - 5);
 
     if (fechaIngresada.toDateString() === fechaActual.toDateString()) {
@@ -95,9 +95,34 @@ export function validarFormatoPeriodoLectivo(periodo) {
     if (!formatoRegExp.test(periodo)) {
         return false;
     }
+
     const [anioInicio, anioFin] = periodo.split('-');
+
     if (isNaN(anioInicio) || isNaN(anioFin) || anioInicio.length !== 4 || anioFin.length !== 4) {
         return false;
     }
+
+    if (parseInt(anioInicio) >= parseInt(anioFin) || anioInicio === anioFin) {
+        return false;
+    }
+
+    return true;
+}
+export function validarFechaIActividad(fechaInicio) {
+    const fechaInicioDate = new Date(fechaInicio);
+
+    const fechaActual = new Date();
+    fechaActual.setHours(0, 0, 0, 0);
+
+    return fechaInicioDate <= fechaActual;
+}
+
+export function validarCaracteresEspeciales(cadena) {
+    const caracteresEspecialesRegExp = /^[a-zA-ZÀ-ÿ0-9\s]+$/;
+
+    if (!caracteresEspecialesRegExp.test(cadena)) {
+        return false;
+    }
+
     return true;
 }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Banner nombre="Carlos" />
+        <Navbar></Navbar>
     </div>
     <div class="flecha-regresar" @click="regresarPagina">
 
@@ -11,13 +11,14 @@
     </div>
     <div class=" mt-3">
         <div class="col-md-6 offset-md-3">
-            <form @submit.prevent="guardar" class="row g-3 pb-4">
+            <form @submit.prevent="guardar" class="row g-3 pb-4 ">
                 <div class="col-md-6">
                     <label class="form-label">Nombre grado</label>
                     <input type="text" v-model="nombreGrado" class="form-control" id="nombreGrado"
                         placeholder="Nombre Grado" required @blur="nombreGradoT = true">
                     <span v-if="nombreGradoT && !nombreGrado" class="error text-danger small">{{
                         mensajesError.nombreGrado }}</span>
+                    <span v-if="!validarCaracteresEspeciales(nombreGrado) && nombreGrado" class="error text-danger small">{{ mensajesError.cEsp }}</span>
 
                 </div>
                 <div class="col-md-6">
@@ -29,7 +30,7 @@
                     </select>
                 </div>
                 <div class="col-6 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success text-white w-50 rounded-5 ">Crear</button>
+                    <button :disabled="!validarCaracteresEspeciales(nombreGrado)" type="submit" class="btn btn-success text-white w-50 rounded-5 ">Crear</button>
                 </div>
                 <div class="col-6">
                     <router-link :to="{ path: '/admin/grado' }" class="btn btn-danger w-50 rounded-5 ">
@@ -41,11 +42,12 @@
     </div>
 </template>
 <script>
-import Banner from '@/components/Banner.vue';
+import Navbar from '@/components/Navbar.vue';
 import axios from 'axios'
 import Swal from 'sweetalert2';
 import router from '@/router';
 import { API_URL } from '../../../api/config.js';
+import {validarCaracteresEspeciales} from '@/utilidades/validaciones.js';
 export default {
     data() {
         return {
@@ -56,6 +58,7 @@ export default {
             mensajesError: {
                 nombreGrado: 'Ingrese un grado',
                 persId: 'Ingrese un docente',
+                cEsp: 'No se permiten caracteres especiales'
             },
             nombreGradoT: false,
             persIdT: false,
@@ -69,8 +72,11 @@ export default {
         regresarPagina() {
             this.$router.go(-1);
         },
+        validarCaracteresEspeciales(cadena){
+            return validarCaracteresEspeciales(cadena);
+        },
         getDocentes() {
-            axios.get(API_URL + '/docente').then(
+            axios.get(API_URL + '/docentes/disponibles').then(
                 res => {
                     this.docentes = res.data;
                     console.log(this.docentes);
@@ -106,7 +112,7 @@ export default {
         }
     },
     components: {
-        Banner
+        Navbar
     }
 }
 </script>

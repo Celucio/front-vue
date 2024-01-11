@@ -19,7 +19,7 @@
                         </div>
                     </div>
 
-                    <DataTable :data="datos" :columns="columnas" :dataKey="key" />
+                    <DataTable :data="datos" :columns="columnas"  />
                 </div>
             </div>
         </div>

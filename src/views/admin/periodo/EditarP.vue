@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Banner nombre="Carlos" />
+        <Navbar></Navbar>
     </div>
     <div class="flecha-regresar" @click="regresarPagina">
 
@@ -18,6 +18,7 @@
                         required @blur="data.anioLectivoT = true">
                     <span v-if="data.anioLectivoT && !data.anioLectivo" class="error text-danger small">{{ mensajesError.anioLectivo
                     }}</span>
+                    <span v-if="!validarFormatoPeriodoLectivo(data.anioLectivo) && data.anioLectivo" class="text-danger small">Escriba correctamente el formato.</span>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Estado</label>
@@ -27,7 +28,7 @@
                     </select>
                 </div>
                 <div class="col-6 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success text-white w-50 rounded-5 ">Actualizar</button>
+                    <button :disabled="!validarFormatoPeriodoLectivo(data.anioLectivo)" type="submit" class="btn btn-success text-white w-50 rounded-5 ">Actualizar</button>
                 </div>
                 <div class="col-6">
                     <router-link :to="{ path: '/admin/periodo' }" class="btn btn-danger w-50 rounded-5 ">
@@ -39,11 +40,12 @@
     </div>
 </template>
 <script>
-import Banner from '@/components/Banner.vue';
+import Navbar from '@/components/Navbar.vue';
 import axios from 'axios'
 import Swal from 'sweetalert2';
 import { ref } from 'vue';
 import router from '@/router';
+import { validarFormatoPeriodoLectivo } from '../../../utilidades/validaciones.js';
 import { API_URL } from '../../../api/config.js';
 export default {
     data() {
@@ -76,6 +78,9 @@ export default {
             this.id = route.params.id;
             this.url += this.id;
         },
+        validarFormatoPeriodoLectivo(anioLectivo){
+            return validarFormatoPeriodoLectivo(anioLectivo);
+        },
         get() {
             axios.get(this.url).then(res => {
                this.data.anioLectivo = res.data.anioLectivo;
@@ -101,15 +106,17 @@ export default {
                 console.error('Error en la petición:', error);
                 Swal.fire({
                     title: 'Error',
-                    text: 'Hubo un error al procesar la solicitud.',
-                    icon: 'error'
+                    text: 'No puede existir 2 periodos iguales',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
                 });
             });
 
         }
     },
     components: {
-        Banner
+        Navbar
     }
 }
 </script>

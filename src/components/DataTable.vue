@@ -77,19 +77,6 @@ export default {
                     text: '<i class="fa-solid fa-file-pdf"></i> PDF',
                     titleAttr: 'PDF',
                     className: 'btn btn-danger'
-                },
-                {
-                    title: 'Reporte',
-                    extend: 'print',
-                    text: '<i class="fa-solid fa-print"></i> Imprimir',
-                    titleAttr: 'Imprimir',
-                    className: 'btn btn-secondary'
-                },
-                {
-                    title: 'Reporte',
-                    extend: 'copy',
-                    text: '<i class="fa-solid fa-copy"></i> Copiar',
-                    className: 'btn btn-light'
                 }
             ],
         }

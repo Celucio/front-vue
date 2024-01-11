@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Banner nombre="Carlos" />
+        <Navbar></Navbar>
     </div>
     <div class="flecha-regresar" @click="regresarPagina">
 
@@ -18,9 +18,10 @@
                         required @blur="nombreActividadT = true">
                     <span v-if="nombreActividadT && !nombreActividad" class="error text-danger small">{{ mensajesError.nombreActividad
                     }}</span>
+                    <span v-if="!validarCaracteresEspeciales(nombreActividad) && nombreActividad" class="error text-danger small">{{ mensajesError.cEsp }}</span>
                 </div>
                 <div class="col-6 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success text-white w-50 rounded-5 ">Crear</button>
+                    <button type="submit" :disabled="!validarCaracteresEspeciales(nombreActividad)" class="btn btn-success text-white w-50 rounded-5 ">Crear</button>
                 </div>
                 <div class="col-6">
                     <router-link :to="{ path: '/admin/tipo' }" class="btn btn-danger w-50 rounded-5 ">
@@ -33,18 +34,19 @@
     </div>
 </template>
 <script>
-import Banner from '@/components/Banner.vue';
+import Navbar from '@/components/Navbar.vue';
 import axios from 'axios'
 import Swal from 'sweetalert2';
 import router from '@/router';
 import { API_URL } from '../../../api/config.js';
-
+import { validarCaracteresEspeciales} from '@/utilidades/validaciones.js';
 export default{
     data(){
         return{
             nombreActividad: '',
             mensajesError: {
                 nombreActividad: 'Ingrese un periodo de calificaciones', 
+                cEsp: 'No se permiten caracteres especiales'
             },
             nombreActividadT: false,
             url: API_URL+'/tipoActividad',
@@ -53,6 +55,9 @@ export default{
     methods: {
         regresarPagina() {
             this.$router.go(-1);
+        },
+        validarCaracteresEspeciales(cadena){
+            return validarCaracteresEspeciales(cadena);
         },
         guardar() {
             axios.post(this.url, {
@@ -83,7 +88,7 @@ export default{
         }
     },
     components: {
-        Banner
+        Navbar
     }
 }
 
