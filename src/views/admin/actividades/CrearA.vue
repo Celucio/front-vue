@@ -161,9 +161,9 @@ export default {
                 }
             );
         },
-        guardar() {
+        async guardar() {
             try {
-                axios.post(this.url, {
+                await axios.post(this.url, {
                     titulo: this.titulo,
                     detalleActividad: this.detalleActividad,
                     fechaInicio: this.fechaInicio,
@@ -174,7 +174,7 @@ export default {
                     estado: this.estado,
                 })
                 const asignaturaId = this.selectedAsignatura;
-                const notasResponse = axios.post(`${API_URL}/notas/${asignaturaId}`);
+                const notasResponse = await axios.post(`${API_URL}/notas/${asignaturaId}`);
                 console.log('Notas cargadas:' + notasResponse.data);
                 Swal.fire({
                     title: 'Exito!',

@@ -29,7 +29,7 @@ import EditarM from '../views/admin/matricula/EditarM.vue'
 import VistaA from '../views/admin/actividades/VistaA.vue'
 import CrearA from '../views/admin/actividades/CrearA.vue'
 import EditarA from '../views/admin/actividades/EditarA.vue'
-
+import VistaN from '../views/admin/notas/VistaN.vue'
 
 const routes = [
   {
@@ -177,6 +177,11 @@ const routes = [
     name: 'editarA',
     component: EditarA
   },
+  {
+    path: '/admin/notas',
+    name: 'vistaN',
+    component: VistaN
+  }
 ]
 
 const router = createRouter({

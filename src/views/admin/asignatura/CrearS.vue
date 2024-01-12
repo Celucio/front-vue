@@ -29,13 +29,16 @@
                 </div>
                 <div class="col-md-12">
                     <label class="form-label">Nombre de la asignatura</label>
-                    <input type="text" v-model="nombreMateria" class="form-control" id="nombreMateria" placeholder="Nombre de la asignatura"
-                        required @blur="nombreMateriaT = true">
-                    <span v-if="nombreMateriaT && !nombreMateria" class="error text-danger small">{{ mensajesError.nombreMateria}}</span>
-                    <span v-if="!validarCaracteresEspeciales(nombreMateria) && nombreMateria" class="error text-danger small">{{ mensajesError.cEs}}</span>
-                </div>    
+                    <input type="text" v-model="nombreMateria" class="form-control" id="nombreMateria"
+                        placeholder="Nombre de la asignatura" required @blur="nombreMateriaT = true">
+                    <span v-if="nombreMateriaT && !nombreMateria" class="error text-danger small">{{
+                        mensajesError.nombreMateria }}</span>
+                    <span v-if="!validarCaracteresEspeciales(nombreMateria) && nombreMateria"
+                        class="error text-danger small">{{ mensajesError.cEs }}</span>
+                </div>
                 <div class="col-6 d-flex justify-content-end">
-                    <button :disabled="!validarCaracteresEspeciales(nombreMateria)" type="submit" class="btn btn-success text-white w-50 rounded-5 ">Crear</button>
+                    <button :disabled="!validarCaracteresEspeciales(nombreMateria)" type="submit"
+                        class="btn btn-success text-white w-50 rounded-5 ">Crear</button>
                 </div>
                 <div class="col-6">
                     <router-link :to="{ path: '/admin/asignatura' }" class="btn btn-danger w-50 rounded-5 ">
@@ -53,7 +56,7 @@ import Swal from 'sweetalert2';
 import router from '@/router';
 import { ref } from 'vue'
 import { API_URL } from '../../../api/config.js';
-import {validarCaracteresEspeciales} from '@/utilidades/validaciones.js';
+import { validarCaracteresEspeciales } from '@/utilidades/validaciones.js';
 export default {
     data() {
         const estado = ref("")
@@ -69,7 +72,7 @@ export default {
             },
             nombreMateriaT: false,
             estadoT: false,
-            url: API_URL+'/asignatura',
+            url: API_URL + '/asignatura',
         }
     },
     mounted() {
@@ -79,11 +82,11 @@ export default {
         regresarPagina() {
             this.$router.go(-1);
         },
-        validarCaracteresEspeciales(cadena){
+        validarCaracteresEspeciales(cadena) {
             return validarCaracteresEspeciales(cadena);
         },
         getGrado() {
-            axios.get(API_URL+'/grado').then(
+            axios.get(API_URL + '/grado').then(
                 res => {
                     this.grados = res.data;
                 }
@@ -105,11 +108,10 @@ export default {
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 1500
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        router.push('/admin/asignatura')
-                    }
-                });
+                })
+                router.push('/admin/asignatura')
+               
+
 
             }).catch(error => {
                 console.error('Error en la petición:', error);
@@ -142,5 +144,4 @@ export default {
 
 .texto-flecha {
     color: #007bff;
-}
-</style>
+}</style>

@@ -34,7 +34,7 @@
           </router-link>
         </li>
         <li>
-          <router-link :to="{ path:''}">
+          <router-link :to="{ path:'/admin/notas'}">
             <i class="fa-solid fa-marker"></i> Notas
           </router-link>
         </li>
