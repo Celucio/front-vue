@@ -14,14 +14,14 @@
                             <h1 style="font-family: 'Prompt'; font-size: 2rem;">Periodo Calificaciones</h1>
                         </div>
                         <div class="col-sm-6">
-                            <router-link :to="{ path:'/admin/periodoC/crear'}" class="btn btn-success float-end mt-3"
-                                style="font-family: 'Montserrat';"><i class="fa-solid fa-plus"></i> <b>Crear</b></router-link>
+                            <router-link :to="{ path: '/admin/periodoC/crear' }" class="btn btn-success float-end mt-3"
+                                style="font-family: 'Montserrat';"><i class="fas fa-plus"></i>
+                                <b> Crear</b></router-link>
                         </div>
                     </div>
-
                     <div class="table-responsive" style="font-family: 'Prompt'; font-size: small; overflow-x:visible;">
                         <div class="table-container">
-                            <DataTable :data="datos" :columns="columnas" :dataKey="key"/>
+                            <DataTable :data="datos" :columns="columnas" :dataKey="key" />
                         </div>
                     </div>
                 </div>
@@ -48,8 +48,25 @@ export default {
 
             datos: [],
             columnas: [
-                { label: 'Nombre periodo', data: 'nombrePeriodo', style: { maxWidth: '50px' } },
-                {   label: 'Estado',
+                {
+                    label: 'Nombre periodo',
+                    data: 'nombrePeriodo',
+                    render: function (data, type, row, meta) {
+                        switch (data) {
+                            case 'P':
+                                return 'Primer Trimestre';
+                            case 'S':
+                                return 'Segundo Trimestre';
+                            case 'T':
+                                return 'Tercer Trimestre';
+                            default:
+                                return '';
+                        }
+                    },
+                    style: { maxWidth: '50px' }
+                },
+                {
+                    label: 'Estado',
                     data: 'estado',
                     render: function (data, type, row, meta) {
                         return data === 'A' ? 'Activo' : 'Inactivo';
@@ -71,12 +88,12 @@ export default {
     },
     methods: {
         get() {
-            axios.get(API_URL+'/periodoCalificaciones').then(
+            axios.get(API_URL + '/periodoCalificaciones').then(
                 res => {
                     this.datos = res.data.map(periodo => {
                         return {
                             ...periodo,
-                            
+
                         };
                     });
                 }

@@ -40,7 +40,31 @@ export default {
         return {
             datos: [], // Datos de estudiantes
             columnas: [
-                { label: 'Nombre grado', data: 'nombreGrado', style: { maxWidth: '50px' } },
+                { 
+                    label: 'Nombre grado', 
+                    data: 'nombreGrado', 
+                    style: { maxWidth: '50px' },
+                    render:function(data, type, row, meta){
+                        switch(data){
+                            case 'P':
+                                return 'Primer Grado';
+                            case 'S':
+                                return 'Segundo Grado';
+                            case 'T':
+                                return 'Tercer Grado';
+                            case 'C':
+                                return 'Cuarto Grado';
+                            case 'Q':
+                                return 'Quinto Grado';
+                            case 'X':
+                                return 'Sexto Grado';
+                            case 'M':
+                                return 'Septimo Grado';
+                            default:
+                                return '';
+                        }
+                    } 
+                },
                 { label: 'Docente', data: 'persId', style: { maxWidth: '50px' } },
                 {
                     label: 'Acciones', data: null, style: { width: '70px' }, render: function (data, type, row, meta) {

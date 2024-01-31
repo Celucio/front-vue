@@ -21,10 +21,10 @@
                     <span v-if="!validarCaracteresEspeciales(nombreActividad) && nombreActividad" class="error text-danger small">{{ mensajesError.cEsp }}</span>
                 </div>
                 <div class="col-6 d-flex justify-content-end">
-                    <button type="submit" :disabled="!validarCaracteresEspeciales(nombreActividad)" class="btn btn-success text-white w-50 rounded-5 ">Crear</button>
+                    <button type="submit" :disabled="!validarCaracteresEspeciales(nombreActividad)" class="btn btn-success text-white w-75 rounded-5 ">Crear</button>
                 </div>
                 <div class="col-6">
-                    <router-link :to="{ path: '/admin/tipo' }" class="btn btn-danger w-50 rounded-5 ">
+                    <router-link :to="{ path: '/admin/tipo' }" class="btn btn-danger w-75 rounded-5 ">
                         Cancelar
                     </router-link>
                 </div>
@@ -46,7 +46,7 @@ export default{
             nombreActividad: '',
             mensajesError: {
                 nombreActividad: 'Ingrese un periodo de calificaciones', 
-                cEsp: 'No se permiten caracteres especiales'
+                cEsp: 'No se permiten caracteres especiales ni números'
             },
             nombreActividadT: false,
             url: API_URL+'/tipoActividad',

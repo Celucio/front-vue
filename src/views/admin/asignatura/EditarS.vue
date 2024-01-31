@@ -15,7 +15,7 @@
                     <label for="docente" class="form-label">Grado</label>
                     <select class="form-select" v-model="selectedGrado" aria-label="Default select example">
                         <option disabled>Seleccione un grado</option>
-                        <option v-for="grado in grados" :key="grado.id" :value="grado.id">{{ grado.nombreGrado }}</option>
+                        <option v-for="grado in grados" :key="grado.id" :value="grado.id">{{ obtenerNombreGrado(grado.nombreGrado) }}</option>
                     </select>
                 </div>
                 <div class="col-md-6">
@@ -83,6 +83,19 @@ export default {
                 }
             )
         },
+        obtenerNombreGrado(abreviatura) {
+            const nombreGrados = {
+                P: 'Primer Grado',
+                S: 'Segundo Grado',
+                T: 'Tercer Grado',
+                C: 'Cuarto Grado',
+                Q: 'Quinto Grado',
+                X: 'Sexto Grado',
+                M: 'Séptimo Grado',
+            };
+
+            return nombreGrados[abreviatura] || 'Grado Desconocido';
+        },
         validarCaracteresEspeciales(cadena){
             return validarCaracteresEspeciales(cadena);
         },
@@ -108,7 +121,9 @@ export default {
                 Swal.fire({
                     title: 'Exito!',
                     text: 'Registro actualizado',
-                    icon: 'success'
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
                 })
                 router.push('/admin/asignatura')
 
@@ -118,7 +133,9 @@ export default {
                 Swal.fire({
                     title: 'Error',
                     text: 'Hubo un error al procesar la solicitud.',
-                    icon: 'error'
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
                 });
             });
 

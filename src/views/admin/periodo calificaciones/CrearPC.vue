@@ -9,21 +9,23 @@
     <div class="text-center" style="font-family:'Prompt'; color: #037aff; font-size: 1.5rem;"><b>Crear
             periodo de calificaciones</b>
     </div>
+
     <div class=" mt-3">
         <div class="col-md-6 offset-md-3">
             <form @submit.prevent="guardar" class="row g-3 pb-4">
                 <div class="col-md-6">
-                    <label class="form-label">Periodo Lectivo</label>
-                    <input type="text" v-model="nombrePeriodo" class="form-control" id="nombrePeriodo" placeholder="Ejemplo: Primer Trimestre"
-                        required @blur="nombrePeriodoT = true">
-                    <span v-if="nombrePeriodoT && !nombrePeriodo" class="error text-danger small">{{ mensajesError.nombrePeriodo
-                    }}</span>
-                    <span v-if="!validarCaracteresEspeciales(nombrePeriodo) && nombrePeriodo" class="error text-danger small">{{ mensajesError.cEs }}</span>
-                    
+                    <label class="form-label">Estado</label>
+                    <select class="form-select" v-model="nombrePeriodo" aria-label="Default select example">
+                        <option value="" selected disabled>Nombre del periodo</option>
+                        <option value="P" >Primer Trimestre</option>
+                        <option value="S">Segundo Trimestre</option>
+                        <option value="T">Tercer Trimestre</option>
+                    </select>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Estado</label>
                     <select class="form-select" v-model="estado" aria-label="Default select example">
+                        <option value="" selected disabled>Seleccione el estado</option>
                         <option value="A" selected>Activo</option>
                         <option value="I">Inactivo</option>
                     </select>
@@ -50,9 +52,10 @@ import { API_URL } from '../../../api/config.js';
 import { validarCaracteresEspeciales} from '../../../utilidades/validaciones.js';
 export default {
     data() {
+        const nombrePeriodo = ref("")
         const estado = ref("")
         return {
-            nombrePeriodo: '',
+            nombrePeriodo: nombrePeriodo.value,
             estado: estado.value,
             mensajesError: {
                 nombrePeriodo: 'Ingrese un periodo de calificaciones',
@@ -96,7 +99,7 @@ export default {
                 console.error('Error en la petición:', error);
                 Swal.fire({
                     title: 'Error',
-                    text: 'Hubo un error al procesar la solicitud.',
+                    text: 'No puede haber 2 periodos de calificaciones iguales',
                     icon: 'error',
                     showConfirmButton: false,
                     timer: 1500

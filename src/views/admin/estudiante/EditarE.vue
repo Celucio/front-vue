@@ -20,7 +20,7 @@
                     }}</span>
                     <span v-if="!validarNombre(data.nombre) && data.nombre" class="text-danger small">No se permite el
                         ingreso de
-                        números.</span>
+                        números ni caracteres especiales</span>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Apellido</label>
@@ -30,7 +30,7 @@
                     }}</span>
                     <span v-if="!validarNombre(data.apellido) && data.apellido" class="text-danger small">No se permite el
                         ingreso de
-                        números.</span>
+                        números ni caracteres especiales</span>
                 </div>
                 <div class="col-12">
                     <label class="form-label">Dirección</label>
@@ -60,7 +60,7 @@
                         valido.</span>
                 </div>
                 <div class="col-6 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success text-white w-50 rounded-5">Actualizar</button>
+                    <button :disabled="!validarNombre(data.nombre) || !validarNombre(data.apellido) || !validarNumeroCelular(data.celular)" type="submit" class="btn btn-success text-white w-50 rounded-5">Actualizar</button>
                 </div>
                 <div class="col-6">
                     <router-link :to="{ path: '/admin/estudiante' }" class="btn btn-danger w-50 rounded-5">
@@ -161,6 +161,13 @@ export default {
 
                 console.log(new Date() + ": Error en la petición");
                 console.error(error);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Registro no Actualizado',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
 
             });
         }

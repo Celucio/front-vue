@@ -1,25 +1,27 @@
 <template>
-        <nav class="navbar">
-                <div class="container-fluid" >
-                    <a class="navbar-brand ms-4" href="#"><img class="img" src="../assets/logo E.png"><span
-                            class="ms-3 ed"><b>EduTechFusion</b></span></a>
-                    <ul class="nav me-4">
-                        <li class="nav-item me-4">
-                            <span class="nav-link">Bienvenido <b>admin</b></span>
-
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-danger" role="button" href="/">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                                    <path fill="none" d="M0 0h24v24H0z" />
-                                    <path
-                                        d="M5 22a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v3h-2V4H6v16h12v-2h2v3a1 1 0 0 1-1 1H5zm13-6v-3h-7v-2h7V8l5 4-5 4z" />
-                                </svg>
-                                <span>Salir</span>
-                            </a>
-                        </li>
-                    </ul>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 ">
+                    <img class="img ms-4" src="../assets/logo E.png">
                 </div>
+                <div class="col-md-6">
+                    <span class="ms-0 ed" style="font-size: 15px;"><b>EduTechFusion</b></span>
+                    <span class="ms-0 ed" style="font-size: 12px;"> Sistema Escolar</span>
+                </div>
+            </div>
+            <ul class="nav me-4">
+                <li class="nav-item me-4">
+                    <span class="nav-link">Bienvenido <b>admin</b></span>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-danger" role="button" href="/">
+                        <i class="fa-solid fa-right-to-bracket"></i><span> Salir</span>
+                        
+                    </a>
+                </li>
+            </ul>
+        </div>
     </nav>
 </template>
 <script>
@@ -41,7 +43,7 @@ export default {
 
 nav {
     font-family: 'Prompt', sans-serif;
-    
+
 }
 
 #a {
@@ -59,10 +61,9 @@ nav {
     font-size: 1rem;
 }
 
-.navbar{
-    box-shadow: -1px 13px 27px -9px rgba(0,0,0,0.28);
--webkit-box-shadow: -1px 13px 27px -9px rgba(0,0,0,0.28);
--moz-box-shadow: -1px 13px 27px -9px rgba(0,0,0,0.28);
+.navbar {
+    box-shadow: -1px 13px 27px -9px rgba(0, 0, 0, 0.28);
+    -webkit-box-shadow: -1px 13px 27px -9px rgba(0, 0, 0, 0.28);
+    -moz-box-shadow: -1px 13px 27px -9px rgba(0, 0, 0, 0.28);
 }
-
 </style>

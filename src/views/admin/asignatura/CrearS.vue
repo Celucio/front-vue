@@ -15,14 +15,14 @@
                 <div class="col-md-6">
                     <label for="docente" class="form-label">Grado</label>
                     <select class="form-select" v-model="selectedGrado" aria-label="Default select example">
-                        <option disabled>Seleccione un grado</option>
-                        <option v-for="grado in grados" :key="grado.id" :value="grado.id">{{ grado.nombreGrado }}</option>
+                        <option value="" selected disabled>Seleccione un grado</option>
+                        <option v-for="grado in grados" :key="grado.id" :value="grado.id">{{ obtenerNombreGrado(grado.nombreGrado) }}</option>
                     </select>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Estado</label>
                     <select class="form-select" v-model="estado" aria-label="Default select example">
-                        <option disabled>Seleccione un estado</option>
+                        <option value="" selected disabled>Seleccione un estado</option>
                         <option value="A" selected>Activo</option>
                         <option value="I">Inactivo</option>
                     </select>
@@ -68,7 +68,7 @@ export default {
             idGrado: '',
             mensajesError: {
                 nombreMateria: 'Ingrese una materia',
-                cEs: 'No se permiten caracteres especiales'
+                cEs: 'No se permiten números ni caracteres especiales'
             },
             nombreMateriaT: false,
             estadoT: false,
@@ -81,6 +81,19 @@ export default {
     methods: {
         regresarPagina() {
             this.$router.go(-1);
+        },
+        obtenerNombreGrado(abreviatura) {
+            const nombreGrados = {
+                P: 'Primer Grado',
+                S: 'Segundo Grado',
+                T: 'Tercer Grado',
+                C: 'Cuarto Grado',
+                Q: 'Quinto Grado',
+                X: 'Sexto Grado',
+                M: 'Séptimo Grado',
+            };
+
+            return nombreGrados[abreviatura] || 'Grado Desconocido';
         },
         validarCaracteresEspeciales(cadena) {
             return validarCaracteresEspeciales(cadena);
@@ -117,7 +130,7 @@ export default {
                 console.error('Error en la petición:', error);
                 Swal.fire({
                     title: 'Error',
-                    text: 'Hubo un error al procesar la solicitud.',
+                    text: 'No puede haber 2 grados iguales',
                     icon: 'error',
                     showConfirmButton: false,
                     timer: 1500

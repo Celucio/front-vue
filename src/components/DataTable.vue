@@ -79,6 +79,7 @@ export default {
                     className: 'btn btn-danger'
                 }
             ],
+            
         }
     },
     components: {

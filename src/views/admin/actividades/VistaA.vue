@@ -12,8 +12,9 @@
                             <h1 style="font-family: 'Prompt'; font-size: 2rem;">Actividades Educativas</h1>
                         </div>
                         <div class="col-sm-6">
-                            <router-link :to="{path:'/admin/actividades/crear'}" class="btn btn-success float-end mt-3"
-                                style="font-family: 'Montserrat';"><i class="fa-solid fa-plus"></i> <b>Crear</b></router-link>
+                            <router-link :to="{ path: '/admin/actividades/crear' }" class="btn btn-success float-end mt-3"
+                                style="font-family: 'Montserrat';"><i class="fa-solid fa-plus"></i>
+                                <b>Crear</b></router-link>
                         </div>
                     </div>
                     <DataTable :data="datos" :columns="columnas" :dataKey="key" />
@@ -38,11 +39,24 @@ export default {
                 { label: 'Título', data: 'titulo', style: { maxWidth: '100px' } },
                 { label: 'Detalle', data: 'detalleActividad', style: { maxWidth: '100px' } },
                 { label: 'Fecha Inicio', data: 'fechaInicio', style: { maxWidth: '50px' } },
-                { label: 'Fecha Fin', data: 'fechaFin', style: { maxWidth: '50px' } },
                 { label: 'Tipo de actividad', data: 'tipoActId', style: { maxWidth: '70px' } },
-                { label: 'Periodo de calificaciones', data: 'perCalId', style: { maxWidth: '70px' } },
+                {
+                    label: 'Periodo de calificaciones', data: 'perCalId', style: { maxWidth: '70px' },
+                    render: function (data, type, row, meta) {
+                        switch (data) {
+                            case 'P':
+                                return 'Primer Trimestre';
+                            case 'S':
+                                return 'Segundo Trimestre';
+                            case 'T':
+                                return 'Tercer Trimestre';
+
+                        }
+                    }
+                },
                 { label: 'Asignatura', data: 'asignaturaId', style: { maxWidth: '100px' } },
-                {   label: 'Estado',
+                {
+                    label: 'Estado',
                     data: 'estado',
                     render: function (data, type, row, meta) {
                         return data === 'A' ? 'Activo' : 'Inactivo';

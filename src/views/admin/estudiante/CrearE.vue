@@ -17,16 +17,19 @@
                     <input type="text" v-model="nombre" class="form-control" id="nombre" placeholder="Nombre" required
                         @blur="nombreT = true">
                     <span v-if="nombreT && !nombre" class="error text-danger small">{{ mensajesError.nombre }}</span>
-                    <span v-if="!validarNombre(nombre) && nombre" class="text-danger small">No se permite el ingreso de
-                        números.</span>
+                    <span v-if="!validarCaracteresEspeciales(nombre) && nombre" class="text-danger small">No se permite el
+                        ingreso de
+                        caracteres especiales ni números.</span>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Apellido</label>
                     <input type="text" v-model="apellido" class="form-control" id="apellido" placeholder="Apellido" required
                         @blur="apellidoT = true">
                     <span v-if="apellidoT && !apellido" class="text-danger small">{{ mensajesError.apellido }}</span>
-                    <span v-if="!validarNombre(apellido) && apellido" class="text-danger small">No se permite el ingreso de
-                        números.</span>
+                    <span v-if="!validarCaracteresEspeciales(apellido) && apellido" class="text-danger small">No se permite
+                        el
+                        ingreso de
+                        caracteres especiales ni números.</span>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Cédula</label>
@@ -77,7 +80,7 @@
                 </div>
                 <div class="col-6 d-flex justify-content-end">
                     <button
-                        :disabled="validarFechaNacimiento(fechaNacimiento) || !validarCorreoElectronico(correo) || !validarNumeroCelular(celular) || !validarCedulaEcuatoriana(cedula) || !validarNombre(nombre) || !validarNombre(apellido)"
+                        :disabled="validarFechaNacimiento(fechaNacimiento) || !validarCorreoElectronico(correo) || !validarNumeroCelular(celular) || !validarCedulaEcuatoriana(cedula) || !validarCaracteresEspeciales(nombre) || !validarCaracteresEspeciales(apellido)"
                         type="submit" class="btn btn-success text-white w-50 rounded-5 ">Crear</button>
                 </div>
                 <div class="col-6">
@@ -96,7 +99,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2';
 import router from '@/router';
 import { API_URL } from '../../../api/config.js';
-import { validarCedulaEcuatoriana, validarFechaNacimiento, validarCorreoElectronico, validarNumeroCelular, validarNombre } from '../../../utilidades/validaciones.js'
+import { validarCedulaEcuatoriana, validarFechaNacimiento, validarCorreoElectronico, validarNumeroCelular, validarCaracteresEspeciales } from '../../../utilidades/validaciones.js'
 export default {
     data() {
         return {
@@ -114,7 +117,7 @@ export default {
             correoT: false,
             celular: '',
             celularT: false,
-            url: API_URL+'/estudiante',
+            url: API_URL + '/estudiante',
             minFechaNacimiento: '2010-01-01',
             maxFechaNacimiento: '2017-12-31',
             mensajesError: {
@@ -131,10 +134,7 @@ export default {
     },
     methods: {
         regresarPagina() {
-            this.$router.go(-1); // Por ejemplo, utilizando Vue Router
-        },
-        validarNombre(nombre) {
-            return validarNombre(nombre);
+            this.$router.go(-1);
         },
         validarNumeroCelular(celular) {
             return validarNumeroCelular(celular);
@@ -149,6 +149,9 @@ export default {
         validarCedulaEcuatoriana(cedula) {
             return validarCedulaEcuatoriana(cedula);
         },
+        validarCaracteresEspeciales(texto) {
+            return validarCaracteresEspeciales(texto);
+        },
         guardar() {
             axios.post(this.url, {
                 nombre: this.nombre,
@@ -158,7 +161,7 @@ export default {
                 direccion: this.direccion,
                 correo: this.correo,
                 celular: this.celular
-            }).then(res=> {
+            }).then(res => {
                 Swal.fire({
                     title: 'Exito!',
                     text: 'Registro guardado',
@@ -173,14 +176,18 @@ export default {
                     Swal.fire({
                         title: 'Error',
                         text: 'La cédula ingresada ya existe en el sistema',
-                        icon: 'error'
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
                     });
                 } else {
                     console.error('Error en la petición:', error);
                     Swal.fire({
                         title: 'Error',
                         text: 'Hubo un error al procesar la solicitud.',
-                        icon: 'error'
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
                     });
                 }
             });

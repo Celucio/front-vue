@@ -31,7 +31,7 @@
                     <label class="form-label">Grado</label>
                     <select class="form-select" v-model="selectedGrado" aria-label="Default select example" disabled >
                         <option disabled>Seleccione un grado</option>
-                        <option v-for="grado in grados" :key="grado.id" :value="grado.id">{{ grado.nombreGrado }}</option>
+                        <option v-for="grado in grados" :key="grado.id" :value="grado.id">{{ obtenerNombreGrado(grado.nombreGrado) }}</option>
                     </select>
                 </div>
                 <div class="col-md-6">
@@ -87,6 +87,19 @@ export default {
             const route = this.$route;
             this.id = route.params.id;
             this.url += this.id;
+        },
+        obtenerNombreGrado(abreviatura) {
+            const nombreGrados = {
+                P: 'Primer Grado',
+                S: 'Segundo Grado',
+                T: 'Tercer Grado',
+                C: 'Cuarto Grado',
+                Q: 'Quinto Grado',
+                X: 'Sexto Grado',
+                M: 'Séptimo Grado',
+            };
+
+            return nombreGrados[abreviatura] || 'Grado Desconocido';
         },
         getMatricula() {
             axios.get(this.url).then(res => {

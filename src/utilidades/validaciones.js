@@ -118,11 +118,16 @@ export function validarFechaIActividad(fechaInicio) {
 }
 
 export function validarCaracteresEspeciales(cadena) {
-    const caracteresEspecialesRegExp = /^[a-zA-ZÀ-ÿ0-9\s]+$/;
+    const caracteresEspecialesRegExp = /^[a-zA-ZÀ-ÿ\s]+$/;
 
     if (!caracteresEspecialesRegExp.test(cadena)) {
         return false;
     }
 
     return true;
+}
+
+export function validarNota(nota) {
+    const valorNota = parseFloat(nota);
+    return !isNaN(valorNota) && valorNota >= 0 && valorNota <= 20;
 }

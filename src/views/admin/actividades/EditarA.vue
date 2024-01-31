@@ -6,7 +6,7 @@
         <span class="texto-flecha"><span class="fa-solid fa-chevron-left"></span>Regresar</span>
     </div>
     <div class="text-center" style="font-family:'Prompt'; color: #037aff; font-size: 1.5rem;">
-        <b>Crear Actividad Educativa</b>
+        <b>Actualizar Actividad Educativa</b>
     </div>
     <div class="mt-3">
         <div class="col-md-6 offset-md-3">
@@ -27,13 +27,9 @@
                     <input type="date" v-model="fechaInicio" class="form-control" required>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Fecha Fin</label>
-                    <input type="date" v-model="fechaFin" class="form-control" required>
-                </div>
-                <div class="col-md-6">
                     <label class="form-label">Tipo de Actividad</label>
                     <select class="form-select" v-model="selectedTipoActividad" aria-label="Default select example"
-                        required>
+                        required disabled>
                         <option disabled>Seleccione un tipo de actividad</option>
                         <option v-for="tipoActividad in tiposActividad" :key="tipoActividad.id" :value="tipoActividad.id">
                             {{ tipoActividad.nombreActividad }}
@@ -43,20 +39,11 @@
                 <div class="col-md-6">
                     <label class="form-label">Periodo de Calificaciones</label>
                     <select class="form-select" v-model="selectedPeriodoCalificaciones" aria-label="Default select example"
-                        required>
+                        required disabled>
                         <option disabled>Seleccione un periodo de calificaciones</option>
                         <option v-for="periodoCalificaciones in periodosCalificaciones" :key="periodoCalificaciones.id"
                             :value="periodoCalificaciones.id">
-                            {{ periodoCalificaciones.nombrePeriodo }}
-                        </option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Asignatura</label>
-                    <select class="form-select" v-model="selectedAsignatura" aria-label="Default select example" required>
-                        <option disabled>Seleccione una asignatura</option>
-                        <option v-for="asignatura in asignaturas" :key="asignatura.id" :value="asignatura.id">
-                            {{ asignatura.nombreMateria }} - ({{ asignatura.grado.nombreGrado }})
+                            {{ obtenerNombrePeriodoCalificaciones(periodoCalificaciones.nombrePeriodo) }}
                         </option>
                     </select>
                 </div>
@@ -67,7 +54,15 @@
                         <option value="I">Inactivo</option>
                     </select>
                 </div>
-
+                <div class="col-md-12">
+                    <label class="form-label">Asignatura</label>
+                    <select class="form-select" v-model="selectedAsignatura" aria-label="Default select example" required disabled >
+                        <option disabled>Seleccione una asignatura</option>
+                        <option v-for="asignatura in asignaturas" :key="asignatura.id" :value="asignatura.id">
+                            {{ asignatura.nombreMateria }} - ({{ obtenerNombreGrado(asignatura.grado.nombreGrado) }})
+                        </option>
+                    </select>
+                </div>
                 <div class="col-6 d-flex justify-content-end">
                     <button type="submit" class="btn btn-success text-white w-50 rounded-5">Actualizar</button>
                 </div>
@@ -100,7 +95,6 @@ export default {
             detalleActividad: '',
             detalleT: false,
             fechaInicio: '',
-            fechaFin: '',
             selectedTipoActividad: null,
             selectedPeriodoCalificaciones: null,
             selectedAsignatura: null,
@@ -129,6 +123,28 @@ export default {
         },
         validarFechaIActividad(fechaInicio) {
             return validarFechaIActividad(fechaInicio);
+        },
+        obtenerNombrePeriodoCalificaciones(abreviatura) {
+            const nombrePeriodos = {
+                P: 'Primer Trimestre',
+                S: 'Segundo Trimestre',
+                T: 'Tercer Trimestre',
+            };
+
+            return nombrePeriodos[abreviatura] || 'Periodo Desconocido';
+        },
+        obtenerNombreGrado(abreviatura) {
+            const nombreGrados = {
+                P: 'Primer Grado',
+                S: 'Segundo Grado',
+                T: 'Tercer Grado',
+                C: 'Cuarto Grado',
+                Q: 'Quinto Grado',
+                X: 'Sexto Grado',
+                M: 'Séptimo Grado',
+            };
+
+            return nombreGrados[abreviatura] || 'Grado Desconocido';
         },
         getTiposActividad() {
             axios.get(API_URL + '/tipoActividad').then(
@@ -168,7 +184,6 @@ export default {
                 this.titulo = res.data.titulo;
                 this.detalleActividad = res.data.detalleActividad;
                 this.fechaInicio = format(new Date(res.data.fechaInicio), 'yyyy-MM-dd');;
-                this.fechaFin = format(new Date(res.data.fechaFin), 'yyyy-MM-dd');;
                 this.selectedTipoActividad = res.data.tipoActId;
                 this.selectedPeriodoCalificaciones = res.data.perCalId;
                 this.selectedAsignatura = res.data.asignaturaId;
@@ -185,7 +200,6 @@ export default {
                 titulo: this.titulo,
                 detalleActividad: this.detalleActividad,
                 fechaInicio: this.fechaInicio,
-                fechaFin: this.fechaFin,
                 tipoActId: this.selectedTipoActividad,
                 perCalId: this.selectedPeriodoCalificaciones,
                 asignaturaId: this.selectedAsignatura,

@@ -22,6 +22,7 @@
                 <div class="col-md-6">
                     <label class="form-label">Estado</label>
                     <select class="form-select" v-model="estado" aria-label="Default select example">
+                        <option value="" selected disabled>Seleccione un estado</option>
                         <option value="A" selected>Activo</option>
                         <option value="I">Inactivo</option>
                     </select>

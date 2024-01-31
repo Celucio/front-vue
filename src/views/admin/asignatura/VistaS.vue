@@ -46,7 +46,32 @@ export default {
             datos: [],
             columnas: [
                 { label: 'Nombre de la materia', data: 'nombreMateria' , style: { maxWidth: '100px' }},
-                {label: 'Nombre de la materia', data:'idGrado',style: { maxWidth: '100px' }},
+                {
+                    label: 'Nombre del grado', 
+                    data:'idGrado',
+                    style: { maxWidth: '100px' },
+                    render:function(data, type, row, meta){
+                        switch(data){
+                            case 'P':
+                                return 'Primer Grado';
+                            case 'S':
+                                return 'Segundo Grado';
+                            case 'T':
+                                return 'Tercer Grado';
+                            case 'C':
+                                return 'Cuarto Grado';
+                            case 'Q':
+                                return 'Quinto Grado';
+                            case 'X':
+                                return 'Sexto Grado';
+                            case 'M':
+                                return 'Septimo Grado';
+                            default:
+                                return '';
+                        }
+                    } 
+                },
+                    
                 {
                     label: 'Estado',
                     data: 'estado',

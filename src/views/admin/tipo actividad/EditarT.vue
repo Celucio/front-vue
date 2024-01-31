@@ -6,7 +6,7 @@
 
         <span class="texto-flecha"><span class="fa-solid fa-chevron-left"></span>Regresar</span>
     </div>
-    <div class="text-center" style="font-family:'Prompt'; color: #037aff; font-size: 1.5rem;"><b>Crear
+    <div class="text-center" style="font-family:'Prompt'; color: #037aff; font-size: 1.5rem;"><b>Actualizar
             tipo de actividad</b>
     </div>
     <div class="mt-3">
@@ -18,9 +18,10 @@
                         required @blur="data.nombreActividadT = true">
                     <span v-if="data.nombreActividadT && !data.nombreActividad" class="error text-danger small">{{ mensajesError.nombreActividad
                     }}</span>
+                     <span v-if="!validarCaracteresEspeciales(data.nombreActividad) && data.nombreActividad" class="error text-danger small">{{ mensajesError.cEsp }}</span>
                 </div>
                 <div class="col-6 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success text-white w-50 rounded-5 ">Actualizar</button>
+                    <button :disabled="!validarCaracteresEspeciales(data.nombreActividad)" type="submit" class="btn btn-success text-white w-50 rounded-5 ">Actualizar</button>
                 </div>
                 <div class="col-6">
                     <router-link :to="{ path: '/admin/tipo' }" class="btn btn-danger w-50 rounded-5 ">
@@ -38,7 +39,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2';
 import router from '@/router';
 import { API_URL } from '../../../api/config.js';
-
+import { validarCaracteresEspeciales} from '@/utilidades/validaciones.js';
 
 export default{
     data(){
@@ -50,6 +51,7 @@ export default{
             },
             mensajesError: {
                 nombreActividad: 'Ingrese un tipo de actividad', 
+                cEsp: 'No se permiten caracteres especiales ni números'
             },
             url: API_URL+'/tipoActividad/',
         }
@@ -61,6 +63,9 @@ export default{
     methods: {
         regresarPagina() {
             this.$router.go(-1);
+        },
+        validarCaracteresEspeciales(cadena){
+            return validarCaracteresEspeciales(cadena);
         },
         getIdFromRoute() {
             const route = this.$route;

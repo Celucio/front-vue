@@ -13,18 +13,22 @@
         <div class="col-md-6 offset-md-3">
             <form @submit.prevent="guardar" class="row g-3 pb-4 ">
                 <div class="col-md-6">
-                    <label class="form-label">Nombre grado</label>
-                    <input type="text" v-model="nombreGrado" class="form-control" id="nombreGrado"
-                        placeholder="Nombre Grado" required @blur="nombreGradoT = true">
-                    <span v-if="nombreGradoT && !nombreGrado" class="error text-danger small">{{
-                        mensajesError.nombreGrado }}</span>
-                    <span v-if="!validarCaracteresEspeciales(nombreGrado) && nombreGrado" class="error text-danger small">{{ mensajesError.cEsp }}</span>
-
+                    <label class="form-label">Nombre Grado</label>
+                    <select class="form-select" v-model="nombreGrado" aria-label="Default select example">
+                        <option value="" selected disabled>Seleccione un grado</option>
+                        <option value="P">Primer Grado</option>
+                        <option value="S">Segundo Grado</option>
+                        <option value="T">Tercer Grado</option>
+                        <option value="C">Cuarto Grado</option>
+                        <option value="Q">Quinto Grado</option>
+                        <option value="X">Sexto Grado</option>
+                        <option value="M">Séptimo Grado</option>
+                    </select>
                 </div>
                 <div class="col-md-6">
                     <label for="docente" class="form-label">Docente</label>
                     <select class="form-select" v-model="selectedDocente" aria-label="Default select example">
-                        <option selected>Seleccione un docente</option>
+                        <option selected disabled>Seleccione un docente</option>
                         <option v-for="docente in docentes" :key="docente.id" :value="docente.id">
                             {{ docente.nombre }} {{ docente.apellido }}</option>
                     </select>
@@ -47,13 +51,15 @@ import axios from 'axios'
 import Swal from 'sweetalert2';
 import router from '@/router';
 import { API_URL } from '../../../api/config.js';
+import { ref } from 'vue'
 import {validarCaracteresEspeciales} from '@/utilidades/validaciones.js';
 export default {
     data() {
+        const nombreGrado = ref("");
         return {
             docentes: [],
             selectedDocente: null,
-            nombreGrado: '',
+            nombreGrado: nombreGrado.value,
             persId: '',
             mensajesError: {
                 nombreGrado: 'Ingrese un grado',
@@ -102,7 +108,7 @@ export default {
             }).catch(error => {
                 Swal.fire({
                     title: 'Error',
-                    text: 'El docente ya pertenece a un grado.',
+                    text: 'El grado ya existe',
                     icon: 'error',
                     showConfirmButton: false,
                     timer: 1500

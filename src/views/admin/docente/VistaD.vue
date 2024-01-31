@@ -75,8 +75,17 @@ export default {
             )
         },
         formatFecha(fecha) {
-            const fechaFormateada = new Date(fecha).toLocaleDateString();
-            return fechaFormateada;
+            if (!fecha) {
+                return null;
+            }
+
+            const fechaObj = new Date(fecha);
+
+            const dia = (fechaObj.getDate()+1).toString().padStart(2, '0');
+            const mes = (fechaObj.getMonth() + 1).toString().padStart(2, '0'); // Se suma 1 porque los meses van de 0 a 11
+            const anio = fechaObj.getFullYear();
+
+            return `${dia}/${mes}/${anio}`;
         }
     },
 };

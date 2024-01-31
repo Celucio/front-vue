@@ -15,7 +15,7 @@
                 <div class="col-md-6">
                     <label class="form-label">Año Lectivo</label>
                     <input type="text" v-model="data.anioLectivo" class="form-control" id="anioLectivo" placeholder="Año Lectivo"
-                        required @blur="data.anioLectivoT = true">
+                        required @blur="data.anioLectivoT = true" disabled>
                     <span v-if="data.anioLectivoT && !data.anioLectivo" class="error text-danger small">{{ mensajesError.anioLectivo
                     }}</span>
                     <span v-if="!validarFormatoPeriodoLectivo(data.anioLectivo) && data.anioLectivo" class="text-danger small">Escriba correctamente el formato.</span>

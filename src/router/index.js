@@ -30,6 +30,8 @@ import VistaA from '../views/admin/actividades/VistaA.vue'
 import CrearA from '../views/admin/actividades/CrearA.vue'
 import EditarA from '../views/admin/actividades/EditarA.vue'
 import VistaN from '../views/admin/notas/VistaN.vue'
+import VistaR from '../views/admin/roles/VistaR.vue'
+import VistaEst from '../views/est/VistaEst.vue'
 
 const routes = [
   {
@@ -181,6 +183,16 @@ const routes = [
     path: '/admin/notas',
     name: 'vistaN',
     component: VistaN
+  },
+  {
+    path: '/admin/roles',
+    name: 'vistaR',
+    component: VistaR
+  },
+  {
+    path: '/estudiante',
+    name: 'vistaEst',
+    component: VistaEst
   }
 ]
 
