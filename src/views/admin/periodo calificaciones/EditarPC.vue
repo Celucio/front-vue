@@ -15,7 +15,7 @@
                 <div class="col-md-6">
                     <label class="form-label">Año Lectivo</label>
                     <input type="text" v-model="data.nombrePeriodo" class="form-control" id="nombrePeriodo" placeholder="Nombre Periodo"
-                        required @blur="data.nombrePeriodoT = true">
+                        required @blur="data.nombrePeriodoT = true" disabled>
                     <span v-if="data.nombrePeriodoT && !data.nombrePeriodo" class="error text-danger small">{{ mensajesError.nombrePeriodo
                     }}</span>
                     <span v-if="!validarCaracteresEspeciales(data.nombrePeriodo) && nombrePeriodo" class="error text-danger small">{{ mensajesError.cEs }}</span>
@@ -74,6 +74,15 @@ export default {
         regresarPagina() {
             this.$router.go(-1);
         },
+        obtenerNombrePeriodoCalificaciones(abreviatura) {
+            const nombrePeriodos = {
+                P: 'Primer Trimestre',
+                S: 'Segundo Trimestre',
+                T: 'Tercer Trimestre',
+            };
+
+            return nombrePeriodos[abreviatura] || 'Periodo Desconocido';
+        },
         getIdFromRoute() {
             const route = useRoute();
             this.id = route.params.id;
@@ -81,7 +90,7 @@ export default {
         },
         get() {
             axios.get(this.url).then(res => {
-               this.data.nombrePeriodo = res.data.nombrePeriodo;
+               this.data.nombrePeriodo = this.obtenerNombrePeriodoCalificaciones(res.data.nombrePeriodo);
                this.data.estado = res.data.estado;
             })
         },
