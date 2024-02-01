@@ -1,6 +1,6 @@
 <template>
     <section class="background-radial-gradient overflow-hidden">
-        <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-4">
+        <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
             <div class="row gx-lg-5 align-items-center">
                 <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
                     <div class=" justify-content-center align-content-center " style="padding-left: 10%;">
@@ -17,16 +17,16 @@
 
                     <div class="card bg-glass">
                         <div class="card-body px-4 py-5 px-md-5">
-                            <form style="font-family: 'Prompt'; font-size: 15px;">
+                            <form style="font-family: 'Prompt'; font-size: 15px;" @submit.prevent="login">
                                 <!-- Email input -->
                                 <div class="form-outline mb-4">
-                                    <input type="email" id="form3Example3" class="form-control" />
-                                    <label class="form-label" for="form3Example3">Usuario</label>
+                                    <input type="text" v-model="user.cedula" class="form-control" />
+                                    <label class="form-label">Usuario</label>
                                 </div>
 
                                 <!-- Password input -->
                                 <div class="form-outline mb-4">
-                                    <input type="password" id="form3Example4" class="form-control" />
+                                    <input type="password" v-model="user.contrasena" class="form-control" />
                                     <label class="form-label" for="form3Example4">Contraseña</label>
                                 </div>
 
@@ -62,7 +62,7 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="d-flex justify-content-center pt-5 ps-5">
-                                                <button type="submit" class="btn btn-primary">
+                                                <button type="submit"  class="btn btn-primary">
                                                     Contactarse
                                                 </button>
                                             </div>
@@ -80,6 +80,31 @@
     </section>
     <!-- Section: Design Block -->
 </template>
+
+<script>
+import axios from 'axios'
+import {API_URL} from '../api/config'
+export default {
+    data() {
+        return {
+            user: {
+                cedula: '',
+                contrasena: ''
+            }
+        }
+    },
+    methods: {
+        async login() {
+            try {
+                const res = await axios.post(API_URL+'/login', this.user)
+                console.log(res)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
+}
+</script>
 <style>
 .background-radial-gradient {
     background-color: hsl(218, 41%, 15%);

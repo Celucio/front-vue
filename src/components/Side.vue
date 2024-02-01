@@ -4,7 +4,7 @@
 
     <div id="sidebar">
       <header>
-        <router-link :to="{ path: '/admin' }"> <i class="fa-solid fa-home"></i> Inicio</router-link>
+        <router-link :to="{ path: '/estudiante' }"> <i class="fa-solid fa-home"></i> Inicio</router-link>
       </header>
 
       <div class="dropdown-toggle pt-3" @click="toggleDropdown" :class="{ active: showDropdown }">

@@ -29,7 +29,6 @@ import DataTable from '@/components/DataTable.vue';
 import { API_URL } from '../../../api/config.js';
 import Navbar from '@/components/Navbar.vue';
 import Sidebar from '@/components/Sidebar.vue';
-import { format, parseISO } from 'date-fns';
 import axios from 'axios'
 
 export default {
