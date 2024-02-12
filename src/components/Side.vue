@@ -1,14 +1,14 @@
 <template>
   <div id="viewport">
     <!-- Sidebar  -->
-
     <div id="sidebar">
       <header>
-        <router-link :to="{ path: '/estudiante' }"> <i class="fa-solid fa-home"></i> Inicio</router-link>
+        <router-link :to="{ path: '/estudiante' }">
+          <i class="fa-solid fa-home"></i> Inicio
+        </router-link>
       </header>
-
       <div class="dropdown-toggle pt-3" @click="toggleDropdown" :class="{ active: showDropdown }">
-        <div class="d-flex flex-row align-items-center ">
+        <div class="d-flex flex-row align-items-center">
           <div class="ps-4">
             <span style="font-size: 20px; font-family: 'Montserrat';">Cursos</span>
           </div>
@@ -16,67 +16,50 @@
             <i class="fa-solid fa-chevron-down" :class="{ rotated: showDropdown }"></i>
           </div>
         </div>
-
       </div>
+
       <transition name="fade">
         <ul v-show="showDropdown" class="nav" id="nav">
           <li v-for="asignatura in asignaturas" :key="asignatura.id" class="pb-0">
-
-            <router-link :to="{ path: '' + asignatura.id }" class="nav-link">
+            <div class="nav-link" @click="seleccionarAsignatura(asignatura.id)">
               <div class="row">
-                <div class="col-sm-2">
-                  <img src="../assets/check.png" alt="" width="30px" height="30px">
+                <div class="col-sm-2 d-flex align-items-center">
+                  <img src="../assets/check.png" alt="" width="35px" height="35px">
                 </div>
-                <div class="col-md-10 d-flex  align-items-center ">
+                <div class="col-md-10 d-flex align-items-center" >
                   <span>{{ asignatura.nombreMateria }}</span>
                 </div>
               </div>
-
-            </router-link>
+            </div>
           </li>
         </ul>
       </transition>
-
     </div>
-
   </div>
 </template>
+
 <script>
-import axios from 'axios';
-import { API_URL } from '../api/config.js';
 export default {
+  props: {
+    asignaturas: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data() {
     return {
-      asignaturas: [],
       showDropdown: false,
-    }
-  },
-  mounted() {
-    this.get();
+    };
   },
   methods: {
-    redirigir(path) {
-      this.$router.push(path)
-    },
-    get() {
-      axios.get(API_URL + '/persona/asignaturas/2')
-        .then(response => {
-          this.asignaturas = response.data;
-          console.log(this.asignaturas);
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
     toggleDropdown() {
-      // Cambia el estado para mostrar u ocultar el dropdown
       this.showDropdown = !this.showDropdown;
     },
-
+    seleccionarAsignatura(idAsignatura) {
+      this.$emit('asignaturaSeleccionada', idAsignatura);
+    },
   },
-  name: "Side",
-
-
+  name: 'Side',
 };
 </script>
 <style scoped>
@@ -89,7 +72,7 @@ body {
   transition: box-shadow 0.3s ease;
 }
 
-.dropdown-toggle::after{
+.dropdown-toggle::after {
   content: none;
 }
 
@@ -169,7 +152,7 @@ body {
   
 } */
 
-#sidebar .nav a {
+#sidebar .nav-link {
   background: none;
   font-weight: bold;
   color: #2a2a2a;
@@ -215,17 +198,6 @@ footer {
   border-top: #b2b2b2cb 2px solid;
 }
 
-footer a {
-  color: #000000;
-  display: block;
-  text-decoration: none;
-  font-family: 'Prompt', sans-serif;
-  transition: color 0.3s;
-}
-
-footer a:hover {
-  color: #037aff;
-}
 
 .collapsed #sidebar {
   margin-left: -50px;
@@ -288,5 +260,6 @@ footer a:hover {
   #sidebar .nav a {
     font-size: 9px;
   }
-}</style>
+}
+</style>
   

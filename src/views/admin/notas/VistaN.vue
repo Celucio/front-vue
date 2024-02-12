@@ -15,7 +15,7 @@
                             <div class="col-sm-3">
                                 <label for="gradoSelect">Seleccionar Grado:</label>
                                 <select v-model="selectedGrado" class="form-select" id="gradoSelect"
-                                    @change="getAsignaturas">
+                                    @change="limpiarFiltrosYObtenerAsignaturas">
                                     <option disabled>Seleccione un grado</option>
                                     <option v-for="grado in grados" :key="grado.id" :value="grado.id">
                                         {{ obtenerNombreGrado(grado.nombreGrado) }}
@@ -185,6 +185,14 @@ export default {
                 .catch(error => {
                     console.error('Error al obtener actividades:', error);
                 });
+        },
+        limpiarFiltros() {
+            this.selectedAsignatura = null;
+            this.selectedActividad = null;
+        },
+        limpiarFiltrosYObtenerAsignaturas() {
+            this.limpiarFiltros();
+            this.getAsignaturas();
         },
         obtenerNombreGrado(abreviatura) {
             const nombreGrados = {

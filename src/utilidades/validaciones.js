@@ -111,10 +111,21 @@ export function validarFormatoPeriodoLectivo(periodo) {
 export function validarFechaIActividad(fechaInicio) {
     const fechaInicioDate = new Date(fechaInicio);
 
+    // Verificar si la fecha es válida
+    if (isNaN(fechaInicioDate.getTime())) {
+        // La fecha no es válida
+        return false;
+    }
+
     const fechaActual = new Date();
     fechaActual.setHours(0, 0, 0, 0);
 
-    return fechaInicioDate <= fechaActual;
+    // Formatear las fechas como cadenas ISO
+    const fechaInicioISO = fechaInicioDate.toISOString().split('T')[0];
+    const fechaActualISO = fechaActual.toISOString().split('T')[0];
+
+    // Permitir la selección de la fecha actual
+    return fechaInicioISO < fechaActualISO;
 }
 
 export function validarCaracteresEspeciales(cadena) {

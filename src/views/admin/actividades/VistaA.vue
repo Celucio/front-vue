@@ -14,7 +14,7 @@
                         <div class="col-sm-6">
                             <router-link :to="{ path: '/admin/actividades/crear' }" class="btn btn-success float-end mt-3"
                                 style="font-family: 'Montserrat';"><i class="fa-solid fa-plus"></i>
-                                <b>Crear</b></router-link>
+                                <b> Crear</b></router-link>
                         </div>
                     </div>
                     <DataTable :data="datos" :columns="columnas" :dataKey="key" />
@@ -87,7 +87,6 @@ export default {
                             titulo: actividades.titulo,
                             detalleActividad: actividades.detalleActividad,
                             fechaInicio: this.formatFecha(actividades.fechaInicio),
-                            fechaFin: this.formatFecha(actividades.fechaFin),
                             tipoActId: `${actividades.tipoActividad.nombreActividad}`,
                             perCalId: `${actividades.periodoCalificaciones.nombrePeriodo}`,
                             asignaturaId: `${actividades.asignatura.nombreMateria}`,
@@ -98,8 +97,17 @@ export default {
             )
         },
         formatFecha(fecha) {
-            const fechaFormateada = new Date(fecha).toLocaleDateString();
-            return fechaFormateada;
+            if (!fecha) {
+                return null;
+            }
+
+            const fechaObj = new Date(fecha);
+
+            const dia = (fechaObj.getDate()+1).toString().padStart(2, '0');
+            const mes = (fechaObj.getMonth() + 1).toString().padStart(2, '0'); // Se suma 1 porque los meses van de 0 a 11
+            const anio = fechaObj.getFullYear();
+
+            return `${dia}/${mes}/${anio}`;
         }
     },
     components: {

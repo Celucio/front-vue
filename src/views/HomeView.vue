@@ -43,13 +43,9 @@
                                         Iniciar Sesión
                                     </button>
                                 </div>
-
-
-
                                 <div class="divider d-flex align-items-center my-4">
                                     <p class="text-center fw-bold mx-3 mb-0 text-muted">O</p>
                                 </div>
-
                                 <!-- Register buttons -->
                                 <div class="container-fluid ">
                                     <div class="row">
@@ -62,7 +58,7 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="d-flex justify-content-center pt-5 ps-5">
-                                                <button type="submit"  class="btn btn-primary">
+                                                <button type="submit" class="btn btn-primary">
                                                     Contactarse
                                                 </button>
                                             </div>
@@ -83,23 +79,74 @@
 
 <script>
 import axios from 'axios'
-import {API_URL} from '../api/config'
+import { API_URL } from '../api/config'
+import Cookies from 'js-cookie';
 export default {
     data() {
         return {
             user: {
                 cedula: '',
-                contrasena: ''
-            }
+                contrasena: '',
+                nuevaContrasena: ''
+            },
+            showChangePasswordModal: false,
+            nuevaContrasena: '',
+            confirmarContrasena: '',
         }
     },
     methods: {
         async login() {
             try {
-                const res = await axios.post(API_URL+'/login', this.user)
-                console.log(res)
+                const res = await axios.post(API_URL + '/login', this.user);
+                const { token, usuario } = res.data;
+                // Almacena el token en las cookies con un tiempo de expiración de 1 hora (en segundos)
+                
+                Cookies.set('token', token, { expires: 3600});
+
+                // Almacena el token en localStorage o en una cookie (según tus necesidades)
+                localStorage.setItem('token', token);
+
+                // Almacena otros datos del usuario si es necesario
+                this.$store.commit('setUsuario', usuario);
+
+                // Realiza el redireccionamiento basado en el tipo de persona
+                if (usuario && usuario.tipoPersona === 'D') {
+                    this.$router.push('/docente');
+                } else if (usuario && usuario.tipoPersona === 'E') {
+                    this.$router.push('/estudiante');
+                } else if (usuario && usuario.tipoPersona === 'A') {
+                    this.$router.push('/administrador');
+                } else {
+                    // Manejo para otros tipos de personas o casos no especificados
+                    this.$router.push('/otra-vista');
+                }
+                if (primerInicioSesion) {
+                    // Si es el primer inicio de sesión, muestra el modal de cambio de contraseña
+                    this.showChangePasswordModal = true;
+                } else {
+                    // Si no es el primer inicio de sesión, realiza el redireccionamiento
+                    this.redirectUser(usuario);
+                }
             } catch (error) {
-                console.log(error)
+                console.log(error);
+            }
+        },
+        async cambiarContrasena() {
+            try {
+                // Realiza la lógica para cambiar la contraseña
+                await axios.put(API_URL + '/cambiarcontrasena', {
+                    cedula: this.user.cedula,
+                    nuevaContrasena: this.nuevaContrasena,
+                });
+
+                // Cierra el modal después de cambiar la contraseña
+                this.showChangePasswordModal = false;
+
+                // Realiza el redireccionamiento basado en el tipo de persona
+
+            } catch (error) {
+                console.error('Error al cambiar la contraseña:', error);
+                // Maneja el error según tus necesidades
             }
         }
     }

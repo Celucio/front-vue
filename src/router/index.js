@@ -32,6 +32,10 @@ import EditarA from '../views/admin/actividades/EditarA.vue'
 import VistaN from '../views/admin/notas/VistaN.vue'
 import VistaR from '../views/admin/roles/VistaR.vue'
 import VistaEst from '../views/est/VistaEst.vue'
+import VistaDoc from '../views/doc/VistaDoc.vue'
+import VistaActDoc from '../views/doc/VistaActDoc.vue'
+import CrearDoc from '../views/doc/CrearDoc.vue'
+import EditarDoc from '../views/doc/EditarDoc.vue'
 
 const routes = [
   {
@@ -193,6 +197,26 @@ const routes = [
     path: '/estudiante',
     name: 'vistaEst',
     component: VistaEst
+  },
+  {
+    path: '/docente',
+    name: 'vistaDoc',
+    component: VistaDoc
+  },
+  {
+    path: '/docente/actividades/:idAsignatura',
+    name: 'vistaActDoc',
+    component: VistaActDoc
+  },
+  {
+    path: '/docente/crear/:idAsignatura',
+    name: 'crearDoc',
+    component: CrearDoc,
+  },
+  {
+    path: '/docente/editar/:id',
+    name: 'editarDoc',
+    component: EditarDoc,
   }
 ]
 

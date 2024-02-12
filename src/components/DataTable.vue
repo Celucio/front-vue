@@ -3,28 +3,28 @@
         <div class="table-responsive" style="font-family: 'Prompt'; font-size: small; overflow-x: visible;">
             <div class="table-container">
                 <DataTable :key="dataKey" :data="data" :columns="columns" class="table" :options="{
-                        responsive: true,
-                        autoWidth: false,
-                        pageLength: 4,
-                        dom: 'Bfrtip',
-                        language: {
-                            search: '',
-                            zeroRecords: 'No se encontraron registros',
-                            info: 'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
-                            infoFiltered: '(filtrado de un total de _MAX_ registros)',
-                            infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
-                            paginate: {
-                                first: 'Primero',
-                                last: 'Último',
-                                next: 'Siguiente',
-                                previous: 'Anterior'
-                            },
-                            searchPlaceholder: ' Buscar',
-                            
+                    responsive: true,
+                    autoWidth: false,
+                    pageLength: 4,
+                    dom: 'Bfrtip',
+                    language: {
+                        search: '',
+                        zeroRecords: 'No se encontraron registros',
+                        info: 'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+                        infoFiltered: '(filtrado de un total de _MAX_ registros)',
+                        infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+                        paginate: {
+                            first: 'Primero',
+                            last: 'Último',
+                            next: 'Siguiente',
+                            previous: 'Anterior'
                         },
-                        buttons: botones,
+                        searchPlaceholder: ' Buscar',
 
-                    }">
+                    },
+                    buttons: botones,
+
+                }">
                     <div class="contenido">
                         <thead class="encabezado-tabla">
                             <tr>
@@ -79,7 +79,7 @@ export default {
                     className: 'btn btn-danger'
                 }
             ],
-            
+
         }
     },
     components: {
@@ -98,7 +98,7 @@ export default {
             type: String,
             default: 'defaultKey',
         }
-    },
+    }
 };
 </script>
 <style>

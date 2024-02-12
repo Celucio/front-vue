@@ -13,14 +13,16 @@
             <form @submit.prevent="guardar" class="row g-3 pb-4">
                 <div class="col-md-12">
                     <label class="form-label">Título de la Actividad</label>
-                    <input type="text" v-model="titulo" class="form-control" placeholder="Título de la Actividad" required @blur="tituloT = true">
-                    <span v-if="tituloT && !titulo" class="error text-danger small">{{mensajesError.titulo}}</span>
+                    <input type="text" v-model="titulo" class="form-control" placeholder="Título de la Actividad" required
+                        @blur="tituloT = true">
+                    <span v-if="tituloT && !titulo" class="error text-danger small">{{ mensajesError.titulo }}</span>
                 </div>
                 <div class="col-md-12">
                     <label class="form-label">Detalle de la Actividad</label>
                     <textarea v-model="detalleActividad" class="form-control" rows="3" placeholder="Detalle de la Actividad"
                         required @blur="detalleT = true"></textarea>
-                    <span v-if="detalleT && !detalleActividad" class="error text-danger small">{{ mensajesError.detalleActividad }}</span>
+                    <span v-if="detalleT && !detalleActividad" class="error text-danger small">{{
+                        mensajesError.detalleActividad }}</span>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Fecha de Inicio</label>
@@ -28,8 +30,8 @@
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Tipo de Actividad</label>
-                    <select class="form-select" v-model="selectedTipoActividad" aria-label="Default select example"
-                        required disabled>
+                    <select class="form-select" v-model="selectedTipoActividad" aria-label="Default select example" required
+                        >
                         <option disabled>Seleccione un tipo de actividad</option>
                         <option v-for="tipoActividad in tiposActividad" :key="tipoActividad.id" :value="tipoActividad.id">
                             {{ tipoActividad.nombreActividad }}
@@ -39,7 +41,7 @@
                 <div class="col-md-6">
                     <label class="form-label">Periodo de Calificaciones</label>
                     <select class="form-select" v-model="selectedPeriodoCalificaciones" aria-label="Default select example"
-                        required disabled>
+                        required>
                         <option disabled>Seleccione un periodo de calificaciones</option>
                         <option v-for="periodoCalificaciones in periodosCalificaciones" :key="periodoCalificaciones.id"
                             :value="periodoCalificaciones.id">
@@ -56,9 +58,10 @@
                 </div>
                 <div class="col-md-12">
                     <label class="form-label">Asignatura</label>
-                    <select class="form-select" v-model="selectedAsignatura" aria-label="Default select example" required disabled >
+                    <select class="form-select" v-model="selectedAsignatura" aria-label="Default select example" required
+                        >
                         <option disabled>Seleccione una asignatura</option>
-                        <option v-for="asignatura in asignaturas" :key="asignatura.id" :value="asignatura.id">
+                        <option v-for="asignatura in asignaturas" :key="asignatura.id" class="small" :value="asignatura.id">
                             {{ asignatura.nombreMateria }} - ({{ obtenerNombreGrado(asignatura.grado.nombreGrado) }})
                         </option>
                     </select>
@@ -103,7 +106,7 @@ export default {
             periodosCalificaciones: [],
             asignaturas: [],
             url: API_URL + '/actividades/',
-            mensajesError:{
+            mensajesError: {
                 titulo: 'Ingrese un titulo',
                 detalleActividad: 'Ingrese la descripción de la actividad',
             }
@@ -115,7 +118,7 @@ export default {
         this.getPeriodosCalificaciones();
         this.getAsignaturas();
         this.getActividades();
-        
+
     },
     methods: {
         regresarPagina() {
@@ -183,7 +186,9 @@ export default {
             axios.get(this.url).then(res => {
                 this.titulo = res.data.titulo;
                 this.detalleActividad = res.data.detalleActividad;
-                this.fechaInicio = format(new Date(res.data.fechaInicio), 'yyyy-MM-dd');;
+                const fechaInicio = new Date(res.data.fechaInicio);
+                fechaInicio.setDate(fechaInicio.getDate() + 1);
+                this.fechaInicio = format(fechaInicio, 'yyyy-MM-dd');
                 this.selectedTipoActividad = res.data.tipoActId;
                 this.selectedPeriodoCalificaciones = res.data.perCalId;
                 this.selectedAsignatura = res.data.asignaturaId;
@@ -209,7 +214,7 @@ export default {
                 res => {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Atividad actualizada',
+                        title: 'Actividad actualizada',
                         showConfirmButton: false,
                         timer: 1500
                     });
@@ -219,10 +224,11 @@ export default {
                 err => {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Error al actualizar la matrícula',
+                        title: 'Error al actualizar la actividad',
                         showConfirmButton: false,
                         timer: 1500
                     });
+                    console.log(err)
                 }
             );
 

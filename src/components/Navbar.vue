@@ -12,7 +12,7 @@
             </div>
             <ul class="nav me-4">
                 <li class="nav-item me-4">
-                    <span class="nav-link">Bienvenido <b>admin</b></span>
+                    <span class="nav-link">Bienvenido/a <b>{{ nombre }}</b></span>
                 </li>
                 <li class="nav-item">
                     <a class="btn btn-danger" role="button" href="/">
@@ -26,6 +26,12 @@
 </template>
 <script>
 export default {
+    props: {
+        nombre: {
+            type: String,
+            required: true,
+        },
+    },
     name: "Navbar"
 };
 </script>
