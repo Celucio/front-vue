@@ -3,7 +3,7 @@
       <!-- Sidebar  -->
       <div id="sidebar">
         <header>
-          <router-link :to="{ path: '/estudiante' }">
+          <router-link :to="{ path: '/docente' }">
             <i class="fa-solid fa-home"></i> Inicio
           </router-link>
         </header>

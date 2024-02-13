@@ -89,6 +89,22 @@ export default {
         }
     },
     methods: {
+        showSuccessMessage(message) {
+            Swal.fire({
+                icon: 'success',
+                title: message,
+                showConfirmButton: false,
+                timer: 1500
+            });
+        },
+        showErrorMessage(message) {
+            Swal.fire({
+                icon: 'error',
+                title: '¡Oops!',
+                text: message,
+                confirmButtonColor: '#dc3545'
+            });
+        },
         async login() {
             try {
                 const res = await axios.post(API_URL + '/login', this.user);
@@ -106,28 +122,13 @@ export default {
 
                 // Realiza el redireccionamiento basado en el tipo de persona
                 if (usuario && usuario.tipoPersona === 'D') {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Inicio de sesión exitoso',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
+                    this.showSuccessMessage('Inicio de sesión exitoso');
                     this.$router.push('/docente');
                 } else if (usuario && usuario.tipoPersona === 'E') {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Inicio de sesión exitoso',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
+                    this.showSuccessMessage('Inicio de sesión exitoso');
                     this.$router.push('/estudiante');
                 } else if (usuario && usuario.tipoPersona === 'A') {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Inicio de sesión exitoso',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
+                    this.showSuccessMessage('Inicio de sesión exitoso');
                     this.$router.push('/administrador');
                 } else {
                     if (primerInicioSesion) {
@@ -141,25 +142,9 @@ export default {
 
 
             } catch (error) {
-                console.log(error);
-            }
-        },
-        async cambiarContrasena() {
-            try {
-                // Realiza la lógica para cambiar la contraseña
-                await axios.put(API_URL + '/cambiarcontrasena', {
-                    cedula: this.user.cedula,
-                    nuevaContrasena: this.nuevaContrasena,
-                });
-
-                // Cierra el modal después de cambiar la contraseña
-                this.showChangePasswordModal = false;
-
-                // Realiza el redireccionamiento basado en el tipo de persona
-
-            } catch (error) {
-                console.error('Error al cambiar la contraseña:', error);
-                // Maneja el error según tus necesidades
+                // Si hay un error en la petición, puedes mostrar un mensaje de error al usuario
+                console.error('Error al iniciar sesión:', error);
+                this.showErrorMessage('Error al iniciar sesión. Por favor, verifica tus credenciales.');
             }
         }
     }
