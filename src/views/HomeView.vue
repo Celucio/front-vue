@@ -31,15 +31,9 @@
                                 </div>
 
                                 <!-- Checkbox -->
-                                <div class="d-flex justify-content-around  align-items-center mb-4">
-                                    <!-- Checkbox -->
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="form1Example3"
-                                            checked />
-                                        <label class="form-check-label" for="form1Example3"> Recordar Contraseña </label>
-                                    </div>
+                                <div class="d-flex justify-content-start  align-items-center mb-4">
                                     <!-- Submit button -->
-                                    <button type="submit" class="btn btn-primary btn-block ">
+                                    <button type="submit" class="btn btn-success btn-block ">
                                         Iniciar Sesión
                                     </button>
                                 </div>
@@ -81,6 +75,7 @@
 import axios from 'axios'
 import { API_URL } from '../api/config'
 import Cookies from 'js-cookie';
+import Swal from 'sweetalert2';
 export default {
     data() {
         return {
@@ -89,7 +84,6 @@ export default {
                 contrasena: '',
                 nuevaContrasena: ''
             },
-            showChangePasswordModal: false,
             nuevaContrasena: '',
             confirmarContrasena: '',
         }
@@ -100,8 +94,9 @@ export default {
                 const res = await axios.post(API_URL + '/login', this.user);
                 const { token, usuario } = res.data;
                 // Almacena el token en las cookies con un tiempo de expiración de 1 hora (en segundos)
-                
-                Cookies.set('token', token, { expires: 3600});
+                const primerInicioSesion = res.data.primerInicioSesion;
+
+                Cookies.set('token', token, { expires: 3600 });
 
                 // Almacena el token en localStorage o en una cookie (según tus necesidades)
                 localStorage.setItem('token', token);
@@ -111,22 +106,40 @@ export default {
 
                 // Realiza el redireccionamiento basado en el tipo de persona
                 if (usuario && usuario.tipoPersona === 'D') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Inicio de sesión exitoso',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     this.$router.push('/docente');
                 } else if (usuario && usuario.tipoPersona === 'E') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Inicio de sesión exitoso',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     this.$router.push('/estudiante');
                 } else if (usuario && usuario.tipoPersona === 'A') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Inicio de sesión exitoso',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     this.$router.push('/administrador');
                 } else {
-                    // Manejo para otros tipos de personas o casos no especificados
-                    this.$router.push('/otra-vista');
+                    if (primerInicioSesion) {
+                        // Si es el primer inicio de sesión, realiza el redireccionamiento a la vista de cambio de contraseña
+                        this.$router.push({ name: 'cambioContrasena', params: { cedula: this.user.cedula } });
+                    } else {
+                        // Si no es el primer inicio de sesión, realiza el redireccionamiento
+                        this.redirectUser(usuario);
+                    }
                 }
-                if (primerInicioSesion) {
-                    // Si es el primer inicio de sesión, muestra el modal de cambio de contraseña
-                    this.showChangePasswordModal = true;
-                } else {
-                    // Si no es el primer inicio de sesión, realiza el redireccionamiento
-                    this.redirectUser(usuario);
-                }
+
+
             } catch (error) {
                 console.log(error);
             }
@@ -152,7 +165,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 .background-radial-gradient {
     background-color: hsl(218, 41%, 15%);
     background-image: radial-gradient(650px circle at 0% 0%,
@@ -167,6 +180,9 @@ export default {
             hsl(218, 41%, 20%) 75%,
             hsl(218, 41%, 19%) 80%,
             transparent 100%);
+    height: 100vh;
+    /* Ajusta al 100% de la altura de la ventana gráfica */
+    min-height: 600px;
 }
 
 #radius-shape-1 {

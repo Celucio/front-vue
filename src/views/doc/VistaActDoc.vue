@@ -6,7 +6,7 @@
   <div class="ps-4 pe-4">
     
     <div class="container-fluid d-flex flex-row justify-content-between pt-3">
-      <span style="font-family: 'Prompt'; font-size: 2rem;">Actividades de {{ detalleAsignaturas.nombreMateria }}</span>
+      <span style="font-family: 'Montserrat'; font-size: 1.5rem;"><b>Actividades de {{ detalleAsignaturas.nombreMateria }}</b></span>
       <div class="d-flex justify-content-end " style="font-family: 'Montserrat';">
         <router-link :to="{ name: 'notaDoc', params: { idAsignatura: idAsignatura } }" class="pe-3">
           <button class="btn btn-success"><b>Asignar notas</b></button>
@@ -30,6 +30,7 @@ import ActivitiesTable from '@/components/ActivitiesTable.vue';
 import Navbar from '@/components/Navbar.vue';
 import axios from 'axios';
 import { API_URL } from '../../api/config';
+
 export default {
   created() {
     // Acceder al ID de la asignatura desde la ruta
@@ -93,7 +94,7 @@ export default {
   },
   components: {
     ActivitiesTable,
-    Navbar
+    Navbar,
   }
 
 };

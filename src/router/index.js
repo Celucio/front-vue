@@ -37,6 +37,7 @@ import VistaActDoc from '../views/doc/VistaActDoc.vue'
 import CrearDoc from '../views/doc/CrearDoc.vue'
 import EditarDoc from '../views/doc/EditarDoc.vue'
 import NotaDoc from '../views/doc/NotaDoc.vue'
+import CambioContrasena from '../views/login/CambioContrasena.vue'
 
 const routes = [
   {
@@ -223,6 +224,11 @@ const routes = [
     path: '/docente/nota/:idAsignatura',
     name: 'notaDoc',
     component: NotaDoc,
+  },
+  {
+    path: '/cambioContrasena/:cedula',
+    name: 'cambioContrasena',
+    component: CambioContrasena
   }
 ]
 

@@ -3,12 +3,12 @@
     <div class="flecha-regresar" @click="regresarPagina">
             <span class="texto-flecha"><i class="fa-solid fa-arrow-left"></i> Regresar</span>
         </div>
-    <div class="ps-4 pe-4">
-        <div class="pt-3">
+    <div class="ps-5 pe-5">
+        <div class="pt-1">
             <div class="row" style="padding-right: 0%;">
                 <div class="row align-items-center " style="font-family: 'Prompt'; padding-right: 0%;">
                     <div class="col-sm-8">
-                        <span style="font-family: 'Prompt'; font-size: 2rem;">Notas para la asignatura {{ detalleAsignaturas.nombreMateria }}</span>
+                        <span style="font-family: 'Montserrat'; font-size: 1.5rem;"><b>Notas para la asignatura {{ detalleAsignaturas.nombreMateria }}</b></span>
                     </div>
                     <div class="col-sm-3" style="display: none;">
                         <label for="asignaturaSelect">Seleccionar Asignatura:</label>
@@ -33,13 +33,13 @@
                     <input v-model="searchQuery" type="text" class="form-control" id="searchInput" placeholder="Buscar" />
                 </div>
             </div>
-            <table class="table ">
+            <table class="table">
                 <thead class="thead-light">
                     <tr>
                         <th scope="col" style="max-width: 2rem;">Nombre</th>
                         <th scope="col" style="max-width: 3rem;">Apellido</th>
                         <th scope="col" style="max-width: 4rem;">Titulo Actividad</th>
-                        <th scope="col" style="max-width: 4rem;">Fecha en que se envio la tarea</th>
+                        <th scope="col" style="max-width: 4rem;">Fecha</th>
                         <th scope="col" class="text-center" style="max-width: 1.5rem;">
                             <div class="row text-center ">
                                 <div class="col-sm-4">
