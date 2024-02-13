@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Grado</label>
-                    <select class="form-select" v-model="selectedGrado" aria-label="Default select example" disabled >
+                    <select class="form-select" v-model="selectedGrado" aria-label="Default select example" >
                         <option disabled>Seleccione un grado</option>
                         <option v-for="grado in grados" :key="grado.id" :value="grado.id">{{ obtenerNombreGrado(grado.nombreGrado) }}</option>
                     </select>

@@ -8,7 +8,7 @@
     <div class="container-fluid d-flex flex-row justify-content-between pt-3">
       <span style="font-family: 'Prompt'; font-size: 2rem;">Actividades de {{ detalleAsignaturas.nombreMateria }}</span>
       <div class="d-flex justify-content-end " style="font-family: 'Montserrat';">
-        <router-link :to="{ name: 'crearDoc', params: { idAsignatura: idAsignatura } }" class="pe-3">
+        <router-link :to="{ name: 'notaDoc', params: { idAsignatura: idAsignatura } }" class="pe-3">
           <button class="btn btn-success"><b>Asignar notas</b></button>
         </router-link>
 

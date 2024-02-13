@@ -36,6 +36,7 @@ import VistaDoc from '../views/doc/VistaDoc.vue'
 import VistaActDoc from '../views/doc/VistaActDoc.vue'
 import CrearDoc from '../views/doc/CrearDoc.vue'
 import EditarDoc from '../views/doc/EditarDoc.vue'
+import NotaDoc from '../views/doc/NotaDoc.vue'
 
 const routes = [
   {
@@ -217,6 +218,11 @@ const routes = [
     path: '/docente/editar/:id',
     name: 'editarDoc',
     component: EditarDoc,
+  },
+  {
+    path: '/docente/nota/:idAsignatura',
+    name: 'notaDoc',
+    component: NotaDoc,
   }
 ]
 

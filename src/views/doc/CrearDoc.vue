@@ -1,11 +1,11 @@
 <template>
   <Navbar :nombre="$store.state.usuario.nombre" class="mn"></Navbar>
-  <div>
-    <h1>Editar Actividad para la asignatura con ID: {{ idAsignatura }}</h1>
-  </div>
   <div class="flecha-regresar" @click="regresarPagina">
     <span class="texto-flecha"><i class="fa-solid fa-arrow-left"></i> Regresar</span>
   </div>
+  <div class="text-center" style="font-family:'Prompt'; color: #037aff; font-size: 1.5rem;">
+        <b>Crear Actividad de {{ detalleAsignaturas.nombreMateria }}</b>
+    </div>
   <div class="mt-3">
     <div class="col-md-6 offset-md-3">
       <form @submit.prevent="guardar" class="row g-3 pb-4">
@@ -101,7 +101,9 @@ export default {
       mensajesError: {
         titulo: 'Ingrese un titulo',
         detalleActividad: 'Ingrese la descripción de la actividad',
-      }
+      },
+      idAsignatura: null,
+      detalleAsignaturas: {}
     }
   },
   created() {
@@ -112,8 +114,18 @@ export default {
   mounted() {
     this.getTiposActividad();
     this.getPeriodosCalificaciones();
+    this.getDetallesAsignatura();
   },
+  
   methods: {
+    async getDetallesAsignatura() {
+      try {
+        const response = await axios.get(API_URL + `/asignatura/${this.idAsignatura}`);
+        this.detalleAsignaturas = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     validarFechaIActividad(fechaInicio) {
       return validarFechaIActividad(fechaInicio);
     },
