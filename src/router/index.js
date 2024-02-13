@@ -38,6 +38,7 @@ import CrearDoc from '../views/doc/CrearDoc.vue'
 import EditarDoc from '../views/doc/EditarDoc.vue'
 import NotaDoc from '../views/doc/NotaDoc.vue'
 import CambioContrasena from '../views/login/CambioContrasena.vue'
+import OlvidoContrasena from '../views/login/OlvidoContrasena.vue'
 
 const routes = [
   {
@@ -229,6 +230,11 @@ const routes = [
     path: '/cambioContrasena/:cedula',
     name: 'cambioContrasena',
     component: CambioContrasena
+  },
+  {
+    path: '/olvidoContrasena',
+    name: 'olvidoContrasena',
+    component: OlvidoContrasena
   }
 ]
 

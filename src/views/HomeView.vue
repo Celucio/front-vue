@@ -25,12 +25,17 @@
                                 </div>
 
                                 <!-- Password input -->
-                                <div class="form-outline mb-4">
+                                <div class="form-outline mb-2">
                                     <input type="password" v-model="user.contrasena" class="form-control" />
                                     <label class="form-label" for="form3Example4">Contraseña</label>
                                 </div>
 
                                 <!-- Checkbox -->
+                                <div class=" pb-3">
+                                    <router-link :to="{ name: 'olvidoContrasena' }">
+                                        <span class="nav-link">¿Olvido su contraseña?</span>
+                                    </router-link>
+                                </div>
                                 <div class="d-flex justify-content-start  align-items-center mb-4">
                                     <!-- Submit button -->
                                     <button type="submit" class="btn btn-success btn-block ">
@@ -43,21 +48,14 @@
                                 <!-- Register buttons -->
                                 <div class="container-fluid ">
                                     <div class="row">
-                                        <div class="col-6">
+                                        <div class="col-12">
                                             <h5>Registrarse</h5>
                                             <span style="font-size: 12px">
                                                 Para acceder a esta página debe tener una cuenta primero. Contáctese con
                                                 secretaria para su matrícula
                                             </span>
                                         </div>
-                                        <div class="col-6">
-                                            <div class="d-flex justify-content-center pt-5 ps-5">
-                                                <button type="submit" class="btn btn-primary">
-                                                    Contactarse
-                                                </button>
-                                            </div>
-
-                                        </div>
+                                        
                                     </div>
                                 </div>
 
