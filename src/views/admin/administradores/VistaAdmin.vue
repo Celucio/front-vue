@@ -9,10 +9,10 @@
                 <div class="">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h1 style="font-family: 'Prompt'; font-size: 2rem;">Docentes</h1>
+                            <h1 style="font-family: 'Prompt'; font-size: 2rem;">Administradores</h1>
                         </div>
                         <div class="col-sm-6">
-                            <router-link :to="{ path: '/admin/docente/crear'}" class="btn btn-success float-end mt-3"
+                            <router-link :to="{ name: 'crearAdmin'}" class="btn btn-success float-end mt-3"
                                 style="font-family: 'Montserrat';"><i class="fa-solid fa-plus"></i> <b>Crear</b></router-link>
                         </div>
                     </div>
@@ -22,18 +22,16 @@
         </div>
     </div>
 </template>
-  
 <script>
-import DataTable from '@/components/DataTable.vue';
-import { API_URL } from '../../../api/config.js';
 import Navbar from '@/components/Navbar.vue';
+import DataTable from '@/components/DataTable.vue';
 import Sidebar from '@/components/Sidebar.vue';
 import axios from 'axios'
-
+import { API_URL } from '../../../api/config.js';
 export default {
     components: {
-        DataTable,
         Navbar,
+        DataTable,
         Sidebar
     },
     data() {
@@ -49,7 +47,7 @@ export default {
                 { label: 'Celular', data: 'celular', style: { maxWidth: '50px' } },
                 {
                     label: 'Acciones', data: null, style: { width: '70px' }, render: function (data, type, row, meta) {
-                        return `<a href="/admin/docente/editar/${row.id}" class="btn btn-warning"><i class="fa-solid fa-edit"></i></a>`;
+                        return `<a href="/admin/administradores/editar/${row.id}" class="btn btn-warning"><i class="fa-solid fa-edit"></i></a>`;
                     }
                 }
 
@@ -63,12 +61,12 @@ export default {
     },
     methods: {
         get() {
-            axios.get(API_URL + '/docente').then(
+            axios.get(API_URL + '/admin').then(
                 res => {
-                    this.datos = res.data.map(docente => {
+                    this.datos = res.data.map(admin => {
                         return {
-                            ...docente,
-                            fechaNacimiento: this.formatFecha(docente.fechaNacimiento)
+                            ...admin,
+                            fechaNacimiento: this.formatFecha(admin.fechaNacimiento)
                         };
                     });
                 }
@@ -88,5 +86,5 @@ export default {
             return `${dia}/${mes}/${anio}`;
         }
     },
-};
+}
 </script>

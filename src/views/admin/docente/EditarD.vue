@@ -14,42 +14,53 @@
             <form @submit.prevent="guardar" class="row g-3">
                 <div class="col-md-6">
                     <label class="form-label">Nombre</label>
-                    <input type="text" v-model="data.nombre" class="form-control" id="nombre" name="nombre"  @blur="data.nombreT = true">
-                    <span v-if="data.nombreT && !data.nombre" class="error text-danger small">{{ mensajesError.nombre }}</span>
-                    <span v-if="!validarNombre(data.nombre) && data.nombre" class="text-danger small">No se permite el ingreso de
-                        números.</span>
+                    <input type="text" v-model="data.nombre" class="form-control" id="nombre" name="nombre"
+                        @blur="data.nombreT = true">
+                    <span v-if="data.nombreT && !data.nombre" class="error text-danger small">{{ mensajesError.nombre
+                    }}</span>
+                    <span v-if="!validarNombre(data.nombre) && data.nombre" class="text-danger small">No se permite el
+                        ingreso de
+                        números ni caracteres especiales.</span>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Apellido</label>
-                    <input type="text" v-model="data.apellido" class="form-control" id="apellido" name="apellido" @blur="data.apellidoT = true">
-                    <span v-if="data.apellidoT && !data.apellido" class="text-danger small">{{ mensajesError.apellido }}</span>
-                    <span v-if="!validarNombre(data.apellido) && data.apellido" class="text-danger small">No se permite el ingreso de
-                        números.</span>
+                    <input type="text" v-model="data.apellido" class="form-control" id="apellido" name="apellido"
+                        @blur="data.apellidoT = true">
+                    <span v-if="data.apellidoT && !data.apellido" class="text-danger small">{{ mensajesError.apellido
+                    }}</span>
+                    <span v-if="!validarNombre(data.apellido) && data.apellido" class="text-danger small">No se permite el
+                        ingreso de
+                        números ni caracteres especiales.</span>
                 </div>
                 <div class="col-12">
                     <label class="form-label">Dirección</label>
-                    <textarea class="form-control" v-model="data.direccion" id="direccion" rows="3"
-                        name="direccion" @blur="data.direccionT = true"></textarea>
-                    <span v-if="data.direccionT && !data.direccion" class="text-danger small">{{ mensajesError.direccion }}</span>
+                    <textarea class="form-control" v-model="data.direccion" id="direccion" rows="3" name="direccion"
+                        @blur="data.direccionT = true"></textarea>
+                    <span v-if="data.direccionT && !data.direccion" class="text-danger small">{{ mensajesError.direccion
+                    }}</span>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Correo</label>
-                    <input type="text" v-model="data.correo" class="form-control" id="correo" name="correo" @blur="data.correoT = true">
+                    <input type="text" v-model="data.correo" class="form-control" id="correo" name="correo"
+                        @blur="data.correoT = true">
                     <span v-if="data.correoT && !data.correo" class="text-danger small">{{ mensajesError.correo }}</span>
-                    <span v-if="!validarCorreoElectronico(data.correo) && data.correo" class="text-danger small">El correo ingresado
+                    <span v-if="!validarCorreoElectronico(data.correo) && data.correo" class="text-danger small">El correo
+                        ingresado
                         no es
                         valido.</span>
                 </div>
                 <div class="col-md-6 pb-3">
                     <label class="form-label">Celular</label>
-                    <input type="text" v-model="data.celular" class="form-control" id="celular" name="celular" @blur="data.celularT=true">
+                    <input type="text" v-model="data.celular" class="form-control" id="celular" name="celular"
+                        @blur="data.celularT = true">
                     <span v-if="data.celularT && !data.celular" class="text-danger small">{{ mensajesError.celular }}</span>
-                    <span v-if="!validarNumeroCelular(data.celular) && data.celular" class="text-danger small">El celular ingresado
+                    <span v-if="!validarNumeroCelular(data.celular) && data.celular" class="text-danger small">El celular
+                        ingresado
                         no es
                         valido.</span>
                 </div>
                 <div class="col-6 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success text-white w-50 rounded-5">Actualizar</button>
+                    <button type="submit" :disabled="!validarNumeroCelular(data.celular) || !validarNombre(data.nombre) || !validarNombre(data.apellido) || !validarCorreoElectronico(data.correo)" class="btn btn-success text-white w-50 rounded-5">Actualizar</button>
                 </div>
                 <div class="col-6">
                     <router-link :to="{ path: '/admin/docente' }" class="btn btn-danger w-50 rounded-5">
@@ -65,6 +76,7 @@
 import Navbar from '@/components/Navbar.vue';
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import router from '@/router';
 import { validarCorreoElectronico, validarNumeroCelular, validarNombre } from '../../../utilidades/validaciones.js'
 import { useRoute } from 'vue-router';
 import { API_URL } from '../../../api/config.js';
@@ -84,7 +96,7 @@ export default {
                 celular: '',
                 celularT: false,
             },
-            url: API_URL+'/docente/',
+            url: API_URL + '/docente/',
             mensajesError: {
                 nombre: 'Por favor, ingresa un nombre.',
                 apellido: 'Por favor, ingresa un apellido.',
@@ -102,7 +114,7 @@ export default {
     },
     methods: {
         regresarPagina() {
-            this.$router.go(-1); 
+            this.$router.go(-1);
         },
         validarNombre(nombre) {
             return validarNombre(nombre);
@@ -142,17 +154,24 @@ export default {
                 Swal.fire({
                     title: 'Exito!',
                     text: 'Registro Actualizado',
-                    icon: 'success'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = "/admin/docente";
-                    }
-                });
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                router.push({ path: '/admin/docente' });
+
 
             }).catch(function (error) {
 
                 console.log(new Date() + ": Error en la petición");
                 console.error(error);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Registro no Actualizado',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
 
             });
         }
@@ -175,5 +194,4 @@ export default {
 
 .texto-flecha {
     color: #007bff;
-}
-</style>
+}</style>

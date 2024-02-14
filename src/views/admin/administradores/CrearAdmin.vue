@@ -1,13 +1,13 @@
 <template>
     <div>
-        <Navbar ></Navbar>
+        <Navbar></Navbar>
     </div>
     <div class="flecha-regresar" @click="regresarPagina">
 
         <span class="texto-flecha"><span class="fa-solid fa-chevron-left"></span>Regresar</span>
     </div>
     <div class="text-center" style="font-family:'Prompt'; color: #037aff; font-size: 1.5rem;"><b>Crear
-            Docente</b>
+            un nuevo Administrador</b>
     </div>
     <div class=" mt-3">
         <div class="col-md-6 offset-md-3">
@@ -81,7 +81,7 @@
                         type="submit" class="btn btn-success text-white w-50 rounded-5 ">Crear</button>
                 </div>
                 <div class="col-6">
-                    <router-link :to="{ path: '/admin/docente' }" class="btn btn-danger w-50 rounded-5 ">
+                    <router-link :to="{ path: '/admin/administradores' }" class="btn btn-danger w-50 rounded-5 ">
                         Cancelar
                     </router-link>
                 </div>
@@ -114,7 +114,7 @@ export default {
             correoT: false,
             celular: '',
             celularT: false,
-            url: API_URL+'/docente',
+            url: API_URL+'/admin',
             minFechaNacimiento: '1950-01-01',
             maxFechaNacimiento: '2000-12-31',
             mensajesError: {
@@ -169,7 +169,7 @@ export default {
                     showConfirmButton: false,
                     timer: 1500
                 })
-                router.push('/admin/docente')
+                router.push('/admin/administradores')
 
             }).catch(error => {
                 if (error.response && error.response.status === 500 && error.response.data.error) {

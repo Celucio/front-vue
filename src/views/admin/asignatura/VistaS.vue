@@ -1,6 +1,6 @@
 
 <template>
-    <Navbar class="mn"></Navbar>
+    <Navbar  class="mn"></Navbar>
     <div class="wrapper">
         <!-- Sidebar -->
         <div class="sidebar">

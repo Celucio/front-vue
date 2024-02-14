@@ -31,16 +31,18 @@
                                 </div>
 
                                 <!-- Checkbox -->
-                                <div class=" pb-3">
-                                    <router-link :to="{ name: 'olvidoContrasena' }">
-                                        <span class="nav-link">¿Olvido su contraseña?</span>
-                                    </router-link>
-                                </div>
-                                <div class="d-flex justify-content-start  align-items-center mb-4">
+
+                                <div class="d-flex justify-content-around pt-3  align-items-center mb-4">
+                                    
                                     <!-- Submit button -->
                                     <button type="submit" class="btn btn-success btn-block ">
                                         Iniciar Sesión
                                     </button>
+                                    <div class="">
+                                        <router-link :to="{ name: 'olvidoContrasena' }">
+                                            <span class="nav-link">¿Olvido su contraseña?</span>
+                                        </router-link>
+                                    </div>
                                 </div>
                                 <div class="divider d-flex align-items-center my-4">
                                     <p class="text-center fw-bold mx-3 mb-0 text-muted">O</p>
@@ -55,7 +57,7 @@
                                                 secretaria para su matrícula
                                             </span>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
 
@@ -127,7 +129,7 @@ export default {
                     this.$router.push('/estudiante');
                 } else if (usuario && usuario.tipoPersona === 'A') {
                     this.showSuccessMessage('Inicio de sesión exitoso');
-                    this.$router.push('/administrador');
+                    this.$router.push('/admin');
                 } else {
                     if (primerInicioSesion) {
                         // Si es el primer inicio de sesión, realiza el redireccionamiento a la vista de cambio de contraseña

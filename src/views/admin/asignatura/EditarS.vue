@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Navbar></Navbar>
+        <Navbar ></Navbar>
     </div>
     <div class="flecha-regresar" @click="regresarPagina">
         <span class="texto-flecha"><span class="fa-solid fa-chevron-left"></span>Regresar</span>

@@ -61,8 +61,8 @@
 
       </ul>
       <footer>
-        <router-link :to="{ path: '/admin/roles' }">
-            <i class="fa-solid fa-gear"></i> Configuración
+        <router-link :to="{ path: '/admin/administradores' }">
+            <i class="fa-solid fa-gear"></i> Administrador
           </router-link>
       </footer>
     </div>

@@ -30,7 +30,9 @@ import VistaA from '../views/admin/actividades/VistaA.vue'
 import CrearA from '../views/admin/actividades/CrearA.vue'
 import EditarA from '../views/admin/actividades/EditarA.vue'
 import VistaN from '../views/admin/notas/VistaN.vue'
-import VistaR from '../views/admin/roles/VistaR.vue'
+import VistaAdmin from '../views/admin/administradores/VistaAdmin.vue'
+import CrearAdmin from '../views/admin/administradores/CrearAdmin.vue'
+import EditarAdmin from '../views/admin/administradores/EditarAdmin.vue'
 import VistaEst from '../views/est/VistaEst.vue'
 import VistaDoc from '../views/doc/VistaDoc.vue'
 import VistaActDoc from '../views/doc/VistaActDoc.vue'
@@ -192,11 +194,6 @@ const routes = [
     component: VistaN
   },
   {
-    path: '/admin/roles',
-    name: 'vistaR',
-    component: VistaR
-  },
-  {
     path: '/estudiante',
     name: 'vistaEst',
     component: VistaEst
@@ -235,7 +232,23 @@ const routes = [
     path: '/olvidoContrasena',
     name: 'olvidoContrasena',
     component: OlvidoContrasena
-  }
+  },
+  {
+    path: '/admin/administradores',
+    name: 'vistaAdmin',
+    component: VistaAdmin
+  },
+  {
+    path: '/admin/administradores/crear',
+    name: 'crearAdmin',
+    component: CrearAdmin
+  },
+  {
+    path: '/admin/administradores/editar/:id',
+    name: 'editarAdmin',
+    component: EditarAdmin
+  },
+
 ]
 
 const router = createRouter({

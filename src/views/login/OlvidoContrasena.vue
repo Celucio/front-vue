@@ -27,9 +27,16 @@
 
                                     <input class="form-control" type="password" id="nuevaContrasena"
                                         v-model="nuevaContrasena" required />
-                                        <label class="form-label pt-1" for="nuevaContrasena">Nueva Contraseña</label>
+                                    <label class="form-label pt-1" for="nuevaContrasena">Nueva Contraseña</label>
                                 </div>
-                                <button class="btn btn-success" type="submit">Actualizar</button>
+                                <div class="d-flex justify-content-around ">
+                                    <button class="btn btn-success" type="submit">Actualizar</button>
+                                    <div @click="regresarPagina" class="">
+                                        <button class="btn btn-danger "> Regresar</button>
+                                    </div>
+                                </div>
+
+
                             </form>
                         </div>
                     </div>
@@ -72,6 +79,10 @@ export default {
                 // Maneja el error según tus necesidades
             }
         },
+        regresarPagina() {
+            this.$router.go(-1);
+        }
+
     }
 
 }

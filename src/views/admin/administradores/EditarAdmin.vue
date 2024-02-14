@@ -1,13 +1,13 @@
 <template>
     <div>
-        <Navbar ></Navbar>
+        <Navbar></Navbar>
     </div>
     <div class="flecha-regresar" @click="regresarPagina">
 
         <span class="texto-flecha"><span class="fa-solid fa-chevron-left"></span>Regresar</span>
     </div>
     <div class="text-center pb-3 pt-2" style="font-family:'Prompt'; color: #037aff; font-size: 1.5rem;"><b>Editar
-            Estudiante</b>
+            Administrador</b>
     </div>
     <div class=" mt-3">
         <div class="col-md-6 offset-md-3">
@@ -20,7 +20,7 @@
                     }}</span>
                     <span v-if="!validarNombre(data.nombre) && data.nombre" class="text-danger small">No se permite el
                         ingreso de
-                        números ni caracteres especiales</span>
+                        números ni caracteres especiales.</span>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Apellido</label>
@@ -30,7 +30,7 @@
                     }}</span>
                     <span v-if="!validarNombre(data.apellido) && data.apellido" class="text-danger small">No se permite el
                         ingreso de
-                        números ni caracteres especiales</span>
+                        números ni caracteres especiales.</span>
                 </div>
                 <div class="col-12">
                     <label class="form-label">Dirección</label>
@@ -60,10 +60,10 @@
                         valido.</span>
                 </div>
                 <div class="col-6 d-flex justify-content-end">
-                    <button :disabled="!validarNombre(data.nombre) || !validarNombre(data.apellido) || !validarNumeroCelular(data.celular)" type="submit" class="btn btn-success text-white w-50 rounded-5">Actualizar</button>
+                    <button type="submit" :disabled="!validarNumeroCelular(data.celular) || !validarNombre(data.nombre)|| !validarNombre(data.apellido) || !validarCorreoElectronico(data.correo)" class="btn btn-success text-white w-50 rounded-5">Actualizar</button>
                 </div>
                 <div class="col-6">
-                    <router-link :to="{ path: '/admin/estudiante' }" class="btn btn-danger w-50 rounded-5">
+                    <router-link :to="{ path: '/admin/administradores' }" class="btn btn-danger w-50 rounded-5">
                         Cancelar
                     </router-link>
                 </div>
@@ -77,9 +77,9 @@ import Navbar from '@/components/Navbar.vue';
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import router from '@/router';
-import { API_URL } from '../../../api/config.js';
 import { validarCorreoElectronico, validarNumeroCelular, validarNombre } from '../../../utilidades/validaciones.js'
-
+import { useRoute } from 'vue-router';
+import { API_URL } from '../../../api/config.js';
 export default {
     data() {
         return {
@@ -96,7 +96,7 @@ export default {
                 celular: '',
                 celularT: false,
             },
-            url: API_URL + '/estudiante/',
+            url: API_URL + '/admin/',
             mensajesError: {
                 nombre: 'Por favor, ingresa un nombre.',
                 apellido: 'Por favor, ingresa un apellido.',
@@ -126,12 +126,13 @@ export default {
             return validarCorreoElectronico(correoElectronico);
         },
         getIdFromRoute() {
-            const route = this.$route;
+            const route = useRoute();
             this.id = route.params.id;
             this.url += this.id;
         },
         get() {
             axios.get(this.url).then(res => {
+                console.log(res.data[0]);
                 this.data.nombre = res.data[0].nombre;
                 this.data.apellido = res.data[0].apellido;
                 this.data.direccion = res.data[0].direccion
@@ -147,6 +148,9 @@ export default {
                 correo: this.data.correo,
                 celular: this.data.celular
             }).then(function (response) {
+
+                console.log(new Date() + ": Guardado correctamente");
+
                 Swal.fire({
                     title: 'Exito!',
                     text: 'Registro Actualizado',
@@ -154,7 +158,7 @@ export default {
                     showConfirmButton: false,
                     timer: 1500
                 })
-                router.push('/admin/estudiante');
+                router.push({ path: '/admin/administradores' });
 
 
             }).catch(function (error) {
