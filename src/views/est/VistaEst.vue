@@ -5,7 +5,7 @@
             <Side :asignaturas="$store.state.asignaturas" @asignaturaSeleccionada="cargarActividades"></Side>
         </div>
         <div class="main-content" id="content">
-            <h2> Actividades</h2>
+            <h2> Actividades</h2> 
             <ActividadesCard :actividades="actividades"></ActividadesCard>
 
         </div>
