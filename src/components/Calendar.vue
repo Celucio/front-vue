@@ -5,13 +5,13 @@
                 <div class="month">{{ formattedMonth }}</div>
                 <div class="btns">
                     <div class="btn today-btn" @click="goToDay">
-                        <i class="fas fa-calendar-day"></i>
+                        <i class="fa-solid fa-calendar"></i>
                     </div>
                     <div class="btn prev-btn" @click="prevMonth">
-                        <i class="fas fa-chevron-left"></i>
+                        <i class="fa-solid fa-arrow-left"></i>
                     </div>
                     <div class="btn next-btn" @click="nextMonth">
-                        <i class="fas fa-chevron-right"></i>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </div>
             </div>

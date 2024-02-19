@@ -48,7 +48,7 @@ export default {
   },
   data() {
     return {
-      showDropdown: false,
+      showDropdown: true,
     };
   },
   methods: {

@@ -33,7 +33,7 @@
                                 <!-- Checkbox -->
 
                                 <div class="d-flex justify-content-around pt-3  align-items-center mb-4">
-                                    
+
                                     <!-- Submit button -->
                                     <button type="submit" class="btn btn-success btn-block ">
                                         Iniciar Sesión
@@ -112,10 +112,12 @@ export default {
                 // Almacena el token en las cookies con un tiempo de expiración de 1 hora (en segundos)
                 const primerInicioSesion = res.data.primerInicioSesion;
 
-                Cookies.set('token', token, { expires: 3600 });
+                // Configura una fecha de expiración para el token (por ejemplo, 1 hora)
+                const expirationDate = new Date();
+                expirationDate.setTime(expirationDate.getTime() + 3600 * 1000);
 
-                // Almacena el token en localStorage o en una cookie (según tus necesidades)
-                localStorage.setItem('token', token);
+                // Almacena el token en las cookies con la fecha de expiración
+                Cookies.set('token', token, { expires: expirationDate, secure: false });
 
                 // Almacena otros datos del usuario si es necesario
                 this.$store.commit('setUsuario', usuario);
@@ -134,6 +136,12 @@ export default {
                     if (primerInicioSesion) {
                         // Si es el primer inicio de sesión, realiza el redireccionamiento a la vista de cambio de contraseña
                         this.$router.push({ name: 'cambioContrasena', params: { cedula: this.user.cedula } });
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Atención!',
+                            text: 'Por favor, por motivos de seguridad cambia tu contraseña para continuar.',
+                            confirmButtonColor: '#277ad3'
+                        });
                     } else {
                         // Si no es el primer inicio de sesión, realiza el redireccionamiento
                         this.redirectUser(usuario);

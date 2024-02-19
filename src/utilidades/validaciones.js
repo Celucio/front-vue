@@ -142,3 +142,28 @@ export function validarNota(nota) {
     const valorNota = parseFloat(nota);
     return !isNaN(valorNota) && valorNota >= 0 && valorNota <= 20;
 }
+
+export function validatePassword(password) {
+    // Validar la longitud mínima
+    const minLengthValid = password.length >= 8;
+
+    // Validar que contenga al menos una letra, un número y un carácter especial
+    const containsLetter = /[a-zA-Z]/.test(password);
+    const containsNumber = /\d/.test(password);
+    const containsSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    return minLengthValid && containsLetter && containsNumber && containsSpecialChar;
+}
+
+export function calculatePasswordStrength(password) {
+    // Calcular la fortaleza de la contraseña y devolver un valor entre 0 y 100
+    // Puedes ajustar los criterios según tus necesidades
+    const minLength = 8;
+    const containsLetter = /[a-zA-Z]/.test(password);
+    const containsNumber = /\d/.test(password);
+    const containsSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    const strength = (containsLetter + containsNumber + containsSpecialChar) / 3 * 100;
+
+    return Math.min(strength, 100); // Limitar a un máximo de 100
+}

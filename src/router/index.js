@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { requireAuth } from '../middleware/auth-guard.js';
 import HomeView from '../views/HomeView.vue'
 
 import Vista from '../views/admin/Vista.vue'
@@ -51,197 +52,235 @@ const routes = [
   {
     path: '/admin',
     name: 'vista',
-    component: Vista
+    component: Vista,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/estudiante',
     name: 'vistaE',
-    component: VistaE
+    component: VistaE,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/estudiante/editar/:id',
     name: 'editarE',
-    component: EditarE
+    component: EditarE,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/estudiante/crear',
     name: 'crearE',
-    component: CrearE
+    component: CrearE,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/docente',
     name: 'vistaD',
-    component: VistaD
+    component: VistaD,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/docente/crear',
     name: 'crearD',
-    component: CrearD
+    component: CrearD,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/docente/editar/:id',
     name: 'editarD',
-    component: EditarD
+    component: EditarD,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/periodo',
     name: 'vistaP',
-    component: VistaP
+    component: VistaP,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/periodo/crear',
     name: 'crearP',
-    component: CrearP
+    component: CrearP,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/periodo/editar/:id',
     name: 'editarP',
-    component: EditarP
+    component: EditarP,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/periodoC',
     name: 'vistaPC',
-    component: VistaPC
+    component: VistaPC,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/periodoC/crear',
     name: 'crearPC',
-    component: CrearPC
+    component: CrearPC,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/periodoC/editar/:id',
     name: 'editarPC',
-    component: EditarPC
+    component: EditarPC,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/tipo',
     name: 'vistaT',
-    component: VistaT
+    component: VistaT,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/tipo/crear',
     name: 'crearT',
-    component: CrearT
+    component: CrearT,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/tipo/editar/:id',
     name: 'editarT',
-    component: EditarT
+    component: EditarT,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/grado',
     name: 'vistaG',
-    component: VistaG
+    component: VistaG,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/grado/crear',
     name: 'crearG',
-    component: CrearG
+    component: CrearG,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/grado/editar/:id',
     name: 'editarG',
-    component: EditarG
+    component: EditarG,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/asignatura',
     name: 'vistaS',
-    component: VistaS
+    component: VistaS,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/asignatura/crear',
     name: 'crearS',
-    component: CrearS
+    component: CrearS,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/asignatura/editar/:id',
     name: 'editarS',
-    component: EditarS
+    component: EditarS,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/matricula',
     name: 'vistaM',
-    component: VistaM
+    component: VistaM,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/matricula/crear',
     name: 'crearM',
-    component: CrearM
+    component: CrearM,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/matricula/editar/:id',
     name: 'editarM',
-    component: EditarM
+    component: EditarM,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/actividades',
     name: 'vistaA',
-    component: VistaA
+    component: VistaA,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/actividades/crear',
     name: 'crearA',
-    component: CrearA
+    component: CrearA,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/actividades/editar/:id',
     name: 'editarA',
-    component: EditarA
+    component: EditarA,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/notas',
     name: 'vistaN',
-    component: VistaN
+    component: VistaN,
+    beforeEnter: requireAuth
   },
   {
     path: '/estudiante',
     name: 'vistaEst',
-    component: VistaEst
+    component: VistaEst,
+    beforeEnter: requireAuth
   },
   {
     path: '/docente',
     name: 'vistaDoc',
-    component: VistaDoc
+    component: VistaDoc,
+    beforeEnter: requireAuth
   },
   {
     path: '/docente/actividades/:idAsignatura',
     name: 'vistaActDoc',
-    component: VistaActDoc
+    component: VistaActDoc,
+    beforeEnter: requireAuth
   },
   {
     path: '/docente/crear/:idAsignatura',
     name: 'crearDoc',
     component: CrearDoc,
+    beforeEnter: requireAuth
   },
   {
     path: '/docente/editar/:id',
     name: 'editarDoc',
     component: EditarDoc,
+    beforeEnter: requireAuth
   },
   {
     path: '/docente/nota/:idAsignatura',
     name: 'notaDoc',
     component: NotaDoc,
+    beforeEnter: requireAuth
   },
   {
     path: '/cambioContrasena/:cedula',
     name: 'cambioContrasena',
-    component: CambioContrasena
+    component: CambioContrasena,
   },
   {
     path: '/olvidoContrasena',
     name: 'olvidoContrasena',
-    component: OlvidoContrasena
+    component: OlvidoContrasena,
+
   },
   {
     path: '/admin/administradores',
     name: 'vistaAdmin',
-    component: VistaAdmin
+    component: VistaAdmin,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/administradores/crear',
     name: 'crearAdmin',
-    component: CrearAdmin
+    component: CrearAdmin,
+    beforeEnter: requireAuth
   },
   {
     path: '/admin/administradores/editar/:id',

@@ -14,7 +14,7 @@
                         <img src="../../assets/ninos-en-la-escuela.jpg" class="card-img" alt="..."
                             style="filter: brightness(40%);">
                         <div class="card-img-overlay">
-                            <h5 class="card-title"><b>Creación de Actividades</b></h5>
+                            <h5 class="card-title"><b>Actividades</b></h5>
                             <p class="card-text">En este apartado podra crear y gestionar las actividades de sus
                                 asignaturas.
                                 Para comenzar seleccione una asignatura.
@@ -26,7 +26,7 @@
                     <div class="card text-bg-dark h-50">
                         <img src="../../assets/R.jpg" class="card-img" alt="..." style="filter: brightness(40%);">
                         <div class="card-img-overlay">
-                            <h5 class="card-title"><b>Sección Notas</b></h5>
+                            <h5 class="card-title"><b>Notas</b></h5>
                             <p class="card-text">En este apartado podra visualizar las actividades asignadas a cada uno de
                                 los estudiantes
                                 y colocar la nota respectiva.
@@ -53,6 +53,7 @@ export default {
             asignaturas: [],
             datos: [],
             asigId: null,
+            
 
         }
     },

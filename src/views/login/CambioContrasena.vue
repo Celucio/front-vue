@@ -24,8 +24,23 @@
                                 <div class="form-outline mb-4">
                                     
                                     <input class="form-control" type="password" id="nuevaContrasena"
-                                        v-model="nuevaContrasena" required />
-                                        <label class="form-label pt-1" for="nuevaContrasena">Nueva Contraseña</label>
+                                        v-model="nuevaContrasena" @input="updatePasswordStrength" required />
+                                    <label class="form-label pt-1" for="nuevaContrasena">Nueva Contraseña</label>
+                                    <div v-if="nuevaContrasena && nuevaContrasena.length < 8" class="text-danger small ">
+                                        La contraseña debe tener al menos 8 caracteres.
+                                    </div>
+                                    <div v-if="nuevaContrasena && !validatePassword(nuevaContrasena)" class="text-danger small ">
+                                        La contraseña debe tener caracteres y contener letras, números y
+                                        caracteres especiales.
+                                    </div>
+                                    <!-- Medidor de fortaleza de contraseña -->
+                                    <div v-if="nuevaContrasena" class="mb-4">
+                                        <label class="form-label">Fortaleza de la Contraseña</label>
+                                        <div class="progress">
+                                            <div class="progress-bar" :style="{ width: passwordStrength + '%' }"></div>
+                                        </div>
+                                        <small>Fortaleza: {{ passwordStrength.toFixed(2) }}%</small>
+                                    </div>
                                 </div>
                                 <button class="btn btn-success" type="submit">Actualizar</button>
                             </form>
@@ -41,13 +56,15 @@
 <script>
 import axios from 'axios';
 import { API_URL } from '../../api/config';
+import { validatePassword, calculatePasswordStrength } from '../../utilidades/validaciones'
 import Swal from 'sweetalert2';
 export default {
     //Obtener la cedula del usuario logueado
     data() {
         return {
             nuevaContrasena: '',
-            cedula: null
+            cedula: null,
+            passwordStrength: 0,
         }
     },
     created() {
@@ -56,6 +73,15 @@ export default {
 
     },
     methods: {
+        updatePasswordStrength() {
+            this.passwordStrength = this.calculatePasswordStrength(this.nuevaContrasena);
+        },
+        validatePassword(password) {
+            return validatePassword(password);
+        },
+        calculatePasswordStrength(password) {
+            return calculatePasswordStrength(password);
+        },
         async cambiarContrasena() {
             try {
                 await axios.put(API_URL + '/cambiarcontrasena', {

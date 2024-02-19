@@ -26,11 +26,27 @@
                                     <label class="form-label pt-1" for="nuevaContrasena">Cedula</label>
 
                                     <input class="form-control" type="password" id="nuevaContrasena"
-                                        v-model="nuevaContrasena" required />
+                                        v-model="nuevaContrasena" @input="updatePasswordStrength" required />
                                     <label class="form-label pt-1" for="nuevaContrasena">Nueva Contraseña</label>
+                                    <div v-if="nuevaContrasena && nuevaContrasena.length < 8" class="text-danger small ">
+                                        La contraseña debe tener al menos 8 caracteres.
+                                    </div>
+                                    <div v-if="nuevaContrasena && !validatePassword(nuevaContrasena)" class="text-danger small ">
+                                        La contraseña debe tener caracteres y contener letras, números y
+                                        caracteres especiales.
+                                    </div>
+                                    <!-- Medidor de fortaleza de contraseña -->
+                                    <div v-if="nuevaContrasena" class="mb-4">
+                                        <label class="form-label">Fortaleza de la Contraseña</label>
+                                        <div class="progress">
+                                            <div class="progress-bar" :style="{ width: passwordStrength + '%' }"></div>
+                                        </div>
+                                        <small>Fortaleza: {{ passwordStrength.toFixed(2) }}%</small>
+                                    </div>
                                 </div>
                                 <div class="d-flex justify-content-around ">
-                                    <button class="btn btn-success" type="submit">Actualizar</button>
+                                    <button class="btn btn-success" type="submit"
+                                        :disabled="passwordStrength < 100 || nuevaContrasena.length < 8">Actualizar</button>
                                     <div @click="regresarPagina" class="">
                                         <button class="btn btn-danger "> Regresar</button>
                                     </div>
@@ -51,16 +67,29 @@
 import axios from 'axios';
 import { API_URL } from '../../api/config';
 import Swal from 'sweetalert2';
+import { validatePassword, calculatePasswordStrength } from '../../utilidades/validaciones'
 export default {
     //Obtener la cedula del usuario logueado
     data() {
         return {
             nuevaContrasena: '',
-            cedula: ''
+            cedula: '',
+            passwordStrength: 0,
         }
     },
     methods: {
+        updatePasswordStrength() {
+            this.passwordStrength = this.calculatePasswordStrength(this.nuevaContrasena);
+        },
+        validatePassword(password) {
+            return validatePassword(password);
+        },
+        calculatePasswordStrength(password) {
+            return calculatePasswordStrength(password);
+        },
         async cambiarContrasena() {
+
+
             try {
                 await axios.put(API_URL + '/cambiarcontrasenaolvido', {
                     cedula: this.cedula,
@@ -72,11 +101,9 @@ export default {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                this.$router.push(
-                    '/');
+                this.$router.push('/');
             } catch (error) {
                 console.error('Error al cambiar la contraseña:', error);
-                // Maneja el error según tus necesidades
             }
         },
         regresarPagina() {

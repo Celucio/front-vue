@@ -25,8 +25,6 @@
         <div class="col-md-6">
           <label class="form-label">Fecha de Inicio</label>
           <input type="date" v-model="fechaInicio" class="form-control" required>
-          <span v-if="validarFechaIActividad(fechaInicio) && fechaInicio" class="error text-danger small">No se
-            permite fecha menor a la actual</span>
         </div>
         <div class="col-md-6">
           <label class="form-label">Tipo de Actividad</label>
@@ -61,7 +59,7 @@
           </select>
         </div>
         <div class="col-6 d-flex justify-content-end">
-          <button :disabled="validarFechaIActividad(fechaInicio)" type="submit"
+          <button type="submit"
             class="btn btn-success text-white w-50 rounded-5">Crear</button>
         </div>
         <div class="col-6">

@@ -47,6 +47,7 @@ export default {
             try {
                 const response = await axios.get(API_URL + `/traeractividades/asignatura/estudiante/?idEstudiante=${usId}&idAsignatura=${idAsignatura}`);
                 this.actividades = response.data;
+                console.log('Actividades:', this.actividades);
             } catch (error) {
                 console.error('Error al cargar actividades:', error.message);
                 // Maneja el error, por ejemplo, muestra un mensaje al usuario
