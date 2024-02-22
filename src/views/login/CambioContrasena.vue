@@ -42,7 +42,7 @@
                                         <small>Fortaleza: {{ passwordStrength.toFixed(2) }}%</small>
                                     </div>
                                 </div>
-                                <button class="btn btn-success" type="submit">Actualizar</button>
+                                <button :disabled="passwordStrength < 100 || nuevaContrasena.length < 8" class="btn btn-success" type="submit">Actualizar</button>
                             </form>
                         </div>
                     </div>

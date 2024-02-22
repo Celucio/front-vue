@@ -1,5 +1,6 @@
 <template>
     <section class="background-radial-gradient overflow-hidden">
+
         <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
             <div class="row gx-lg-5 align-items-center">
                 <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
@@ -15,11 +16,15 @@
 
                 <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
                     <div class="card bg-glass">
-
+                        <div class="flecha-regresar position-absolute px-4 pt-3" @click="regresarPagina">
+                            <span class="texto-flecha"><i class="fa-solid fa-arrow-left"></i> Regresar</span>
+                        </div>
                         <div class="card-body px-4 py-5 px-md-5">
+
                             <div class="d-flex justify-content-start">
                                 <h2 style="font-family: 'Montserrat';"><b>Cambio de Contraseña</b></h2>
                             </div>
+
                             <form style="font-family: 'Prompt'; font-size: 15px;" @submit.prevent="cambiarContrasena">
                                 <div class="form-outline mb-4">
                                     <input class="form-control" type="text" v-model="cedula" required>
@@ -31,7 +36,8 @@
                                     <div v-if="nuevaContrasena && nuevaContrasena.length < 8" class="text-danger small ">
                                         La contraseña debe tener al menos 8 caracteres.
                                     </div>
-                                    <div v-if="nuevaContrasena && !validatePassword(nuevaContrasena)" class="text-danger small ">
+                                    <div v-if="nuevaContrasena && !validatePassword(nuevaContrasena)"
+                                        class="text-danger small ">
                                         La contraseña debe tener caracteres y contener letras, números y
                                         caracteres especiales.
                                     </div>
@@ -44,15 +50,10 @@
                                         <small>Fortaleza: {{ passwordStrength.toFixed(2) }}%</small>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-around ">
+                                <div class="d-flex justify-content-start">
                                     <button class="btn btn-success" type="submit"
                                         :disabled="passwordStrength < 100 || nuevaContrasena.length < 8">Actualizar</button>
-                                    <div @click="regresarPagina" class="">
-                                        <button class="btn btn-danger "> Regresar</button>
-                                    </div>
                                 </div>
-
-
                             </form>
                         </div>
                     </div>
